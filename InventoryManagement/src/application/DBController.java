@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 
 public class DBController {
     private static Connection connection;
-    private static final String url = "jdbc:h2:D:\\Workspace\\InventoryManagement\\database\\management";
+    private static final String url = "jdbc:h2:.\\management";
     private static final String user = "sa";
     private static final String pass = "";
 
