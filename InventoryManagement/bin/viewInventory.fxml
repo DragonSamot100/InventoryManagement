@@ -109,7 +109,7 @@
                      <content>
                         <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="527.0" prefWidth="700.0" style="-fx-background-color: brown;">
                            <content>
-                              <TableView fx:id="currentInvTable" prefHeight="1000.0" prefWidth="2000.0" tableMenuButtonVisible="true">
+                              <TableView fx:id="currentInvTable" editable="true" prefHeight="1000.0" prefWidth="2000.0" tableMenuButtonVisible="true">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>

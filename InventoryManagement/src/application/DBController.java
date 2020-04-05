@@ -96,7 +96,8 @@ public class DBController
 
 	private static ArrayList<inventoryItem> dataBaseArrayList(ResultSet resultSet) throws SQLException {
 		ArrayList<inventoryItem> data = new ArrayList<>();
-		while (resultSet.next()) {
+		while (resultSet.next()) 
+		{
 			inventoryItem item = new inventoryItem(resultSet.getString("item"), resultSet.getInt("productID"),
 					resultSet.getInt("quantity"), resultSet.getString("distributor"));
 			data.add(item);

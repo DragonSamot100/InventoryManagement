@@ -220,15 +220,17 @@ public class viewController
     	
     	TableColumn<inventoryItem, Integer> itemStockCol = new TableColumn<inventoryItem, Integer>("Current Stock");
     	itemStockCol.setMinWidth(100);
+
     	itemStockCol.setEditable(true);
     	itemStockCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("quantity"));
     	itemStockCol.setCellFactory(TextFieldTableCell.<inventoryItem, Integer>forTableColumn(new IntegerStringConverter()));
     	itemStockCol.setOnEditCommit((CellEditEvent<inventoryItem, Integer> event) -> 
     	{
-    		System.out.print("It worked");
-//          changeStock();
+    		int newStock = event.getNewValue();
+    		int id = event.getRowValue().productIDProperty().get();
+    		DBController.updateStock(id, newStock);
+    		
         });
-    	
     	
     	TableColumn<inventoryItem, Integer> itemVendorCol = new TableColumn<inventoryItem, Integer>("Vendor");
     	itemVendorCol.setMinWidth(50);
@@ -236,8 +238,6 @@ public class viewController
     	
     	currentInvTable.setItems(data);
     	currentInvTable.getColumns().addAll(itemNumberCol, itemNameCol, itemStockCol, itemVendorCol);
-//        currentInvTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
-
     	
     	data.addListener(new ListChangeListener<inventoryItem>(){
 
