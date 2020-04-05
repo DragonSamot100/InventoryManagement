@@ -226,7 +226,7 @@ public class viewController
     	itemStockCol.setOnEditCommit((CellEditEvent<inventoryItem, Integer> event) -> 
     	{
     		System.out.print("It worked");
-//          
+//          changeStock();
         });
     	
     	

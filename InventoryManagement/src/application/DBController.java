@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class DBController {
+public class DBController 
+{
 	private static Connection connection;
 	private static final String url = "jdbc:h2:.\\database\\management";
 	private static final String user = "sa";
@@ -34,8 +35,7 @@ public class DBController {
 		return connection;
 	}
 
-	public static boolean addInventory(String itemName, String unit, String orderunit, String vendor, int IDNumber,
-			int stock) {
+	public static boolean addInventory(String itemName, String unit, String orderunit, String vendor, int IDNumber, int stock) {
 		getConnection();
 		String query = "Insert into inventory (productID,Item,Unit,OrderUnit,distributor,quantity) values (?, ?, ?, ?, ?, ?)";
 		try {
@@ -55,7 +55,7 @@ public class DBController {
 		return false;
 	}
 
-	public static boolean changeStock(int productID, int newStock) {
+	public static boolean updateStock(int productID, int newStock) {
 		getConnection();
 		String query = "UPDATE inventory SET quantity = ? where productID = ?";
 		try {
@@ -99,6 +99,7 @@ public class DBController {
 		while (resultSet.next()) {
 			inventoryItem item = new inventoryItem(resultSet.getString("item"), resultSet.getInt("productID"),
 					resultSet.getInt("quantity"), resultSet.getString("distributor"));
+			data.add(item);
 		}
 		return data;
 	}

@@ -85,9 +85,9 @@
             </GridPane>
             <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                <children>
-                  <ScrollPane maxHeight="-Infinity" pannable="true" prefHeight="500.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" pannable="true" prefHeight="500.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                      <content>
-                        <TableView fx:id="mainTable" prefHeight="600.0" prefWidth="700.0">
+                        <TableView fx:id="mainTable" editable="true" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0">
                            <contextMenu>
                               <ContextMenu fx:id="contextMenu">
                                 <items>
