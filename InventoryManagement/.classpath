@@ -4,9 +4,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="database"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx"/>
-	<classpathentry kind="lib" path="D:/javafx-sdk-13.0.2/openjfx-13.0.2_windows-x64_bin-sdk.zip"/>
-	<classpathentry kind="lib" path="D:/MySQL/Connector J 8.0/mysql-connector-java-8.0.19.jar"/>
+	<classpathentry kind="src" path="libraries"/>
 	<classpathentry kind="lib" path="D:/Workspace/InventoryManagement/database/h2-1.4.200.jar"/>
+	<classpathentry kind="lib" path="D:/Workspace/InventoryManagement/libraries/openjfx-13.0.2_windows-x64_bin-sdk.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
