@@ -1,6 +1,11 @@
 package application;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -8,7 +13,7 @@ import javafx.collections.ObservableList;
 
 public class DBController {
     private static Connection connection;
-    private static final String url = "jdbc:h2:.\\management";
+    private static final String url = "jdbc:h2:.\\database\\management";
     private static final String user = "sa";
     private static final String pass = "";
 
@@ -40,9 +45,9 @@ public class DBController {
             addStatement.setInt(1, IDNumber);
             addStatement.setString(2, itemName);
             addStatement.setString(3, unit);
-            addStatement.setString(1, orderunit);
-            addStatement.setString(2, vendor);
-            addStatement.setInt(3, stock);
+            addStatement.setString(4, orderunit);
+            addStatement.setString(5, vendor);
+            addStatement.setInt(6, stock);
             addStatement.execute();
             return true;
         } catch (SQLException e) {

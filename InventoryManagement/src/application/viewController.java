@@ -1,9 +1,8 @@
 package application;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 
-import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,25 +10,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.util.converter.IntegerStringConverter;
 
 public class viewController 
 {	
@@ -91,6 +88,8 @@ public class viewController
     	DirectoryChooser directoryChooser = new DirectoryChooser();
     	Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
     	File selectedDirectory = directoryChooser.showDialog((stage));
+    	
+    	
     }
 
     @FXML
@@ -221,8 +220,15 @@ public class viewController
     	
     	TableColumn<inventoryItem, Integer> itemStockCol = new TableColumn<inventoryItem, Integer>("Current Stock");
     	itemStockCol.setMinWidth(100);
-    	itemStockCol.editableProperty();
+    	itemStockCol.setEditable(true);
     	itemStockCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("quantity"));
+    	itemStockCol.setCellFactory(TextFieldTableCell.<inventoryItem, Integer>forTableColumn(new IntegerStringConverter()));
+    	itemStockCol.setOnEditCommit((CellEditEvent<inventoryItem, Integer> event) -> 
+    	{
+    		System.out.print("It worked");
+//          
+        });
+    	
     	
     	TableColumn<inventoryItem, Integer> itemVendorCol = new TableColumn<inventoryItem, Integer>("Vendor");
     	itemVendorCol.setMinWidth(50);
@@ -230,7 +236,22 @@ public class viewController
     	
     	currentInvTable.setItems(data);
     	currentInvTable.getColumns().addAll(itemNumberCol, itemNameCol, itemStockCol, itemVendorCol);
+//        currentInvTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
+
+    	
+    	data.addListener(new ListChangeListener<inventoryItem>(){
+
+            @Override
+            public void onChanged(javafx.collections.ListChangeListener.Change<? extends inventoryItem> pChange) {
+                while(pChange.next()) 
+                {
+                    System.out.println("it worked");
+                }
+            }
+        });
+    	
     }
+    
 
 }
 
