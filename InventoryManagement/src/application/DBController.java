@@ -52,9 +52,9 @@ public class DBController {
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
+        //    System.out.println("SQLException: " + e.getMessage());
+          //  System.out.println("SQLState: " + e.getSQLState());
+            //System.out.println("VendorError: " + e.getErrorCode());
         }
         return false;
     }
