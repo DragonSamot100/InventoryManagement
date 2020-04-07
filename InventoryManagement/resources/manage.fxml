@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -83,35 +82,28 @@
                   </MenuButton>
                </children>
             </GridPane>
-            <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" pannable="true" prefHeight="500.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
-                     <content>
-                        <TableView fx:id="mainTable" editable="true" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0">
-                           <contextMenu>
-                              <ContextMenu fx:id="contextMenu">
-                                <items>
-                                  <MenuItem fx:id="item1" mnemonicParsing="false" />
-                                </items>
-                              </ContextMenu>
-                           </contextMenu>
-                           <effect>
-                              <InnerShadow />
-                           </effect>
-                        </TableView>
-                     </content>
+                  <TableView fx:id="mainTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" style="-fx-border-color: brown;" tableMenuButtonVisible="true">
+                     <contextMenu>
+                        <ContextMenu fx:id="contextMenu">
+                          <items>
+                            <MenuItem fx:id="item1" mnemonicParsing="false" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
                      <effect>
                         <InnerShadow />
                      </effect>
-                  </ScrollPane>
-                  <GridPane fx:id="newItemGrid" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="700.0" style="-fx-background-color: white;" vgap="3.0" visible="false">
+                  </TableView>
+                  <GridPane fx:id="newItemGrid" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="700.0" prefHeight="100.0" prefWidth="700.0" style="-fx-background-color: white;" vgap="3.0" visible="false" VBox.vgrow="ALWAYS">
                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="250.0" prefWidth="250.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" />
