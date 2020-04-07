@@ -1,18 +1,11 @@
 package application;
 
-import java.io.File;
-
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class main extends Application
 {
@@ -37,6 +30,4 @@ public class main extends Application
 		mainStage.show();
 	} 
 	
-
-
 }
