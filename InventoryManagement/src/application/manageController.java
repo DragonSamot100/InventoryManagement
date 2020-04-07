@@ -3,10 +3,8 @@ package application;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,63 +27,73 @@ public class manageController
 	Parent root;
 	Stage manageStage = new Stage();
 	ObservableList<inventoryItem> data = DBController.getInventory();
-	@FXML
-    private VBox vBoxManageFrame;
-	
-    @FXML
-    private Button invItems;
-    
-    @FXML
-    private TableView mainTable;
+	 @FXML
+	    private VBox vBoxManageFrame;
 
-    @FXML
-    private Button vendorsList;
-    
-    @FXML
-    private ContextMenu contextMenu;
-    
-    @FXML
-    private MenuItem item1;
-    
-    @FXML
-    private Button menuItemsList;
+	    @FXML
+	    private Button invItems;
 
-    @FXML
-    private MenuButton menuSelector;
+	    @FXML
+	    private Button vendorsList;
 
-    @FXML
-    private MenuItem MenuItemMenu;
+	    @FXML
+	    private Button menuItemsList;
 
-    @FXML
-    private MenuItem menuItemPARS;
+	    @FXML
+	    private MenuButton menuSelector;
 
-    @FXML
-    private MenuItem menuItemView;
-    
-    @FXML
-    private GridPane newItemGrid;
+	    @FXML
+	    private MenuItem MenuItemMenu;
 
-    @FXML
-    private TextField nameField;
+	    @FXML
+	    private MenuItem menuItemPARS;
 
-    @FXML
-    private TextField idField;
+	    @FXML
+	    private MenuItem menuItemView;
 
-    @FXML
-    private TextField stockField;
+	    @FXML
+	    private TableView<inventoryItem> mainTable;
+
+	    @FXML
+	    private ContextMenu contextMenu;
+
+	    @FXML
+	    private MenuItem item1;
+
+	    @FXML
+	    private GridPane newItemGrid;
+
+	    @FXML
+	    private TextField nameField;
+
+	    @FXML
+	    private Button addItemButton;
+
+	    @FXML
+	    private TextField vendorField;
+
+	    @FXML
+	    private TextField stockField;
+
+	    @FXML
+	    private TextField unitField;
+
+	    @FXML
+	    private TextField stationField;
+
+	    @FXML
+	    private TextField orderUnitField;
     
     @FXML
     void addItem(ActionEvent event) 
     {	
-    	DBController.addInventory(nameField.getText(), null, null, null, Integer.parseInt(idField.getText()), Integer.parseInt(stockField.getText()));
-    	inventoryItem item = new inventoryItem(nameField.getText(), Integer.parseInt(idField.getText()), Integer.parseInt(stockField.getText()), null/**vendorField.getText()**/);
+    	DBController.addInventory(nameField.getText(), null, null, null, data.size()+1, Integer.parseInt(stockField.getText()));
+    	inventoryItem item = new inventoryItem(nameField.getText(), data.size()+1, Integer.parseInt(stockField.getText()), null/**vendorField.getText()**/, null, null);
     	data.add(item);
     	nameField.clear();
-    	idField.clear();
+
     	stockField.clear();
     }
-    @FXML
-    private Button addItemButton;
     @FXML
     void menuItemSelected(ActionEvent event) 
     {
@@ -109,17 +117,20 @@ public class manageController
     	itemNumberCol.setMinWidth(50);
     	itemNumberCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("productID"));
     	
-    	TableColumn<inventoryItem, Integer> itemStockCol = new TableColumn<inventoryItem, Integer>("Current Stock");
-    	itemStockCol.setMinWidth(100);
-    	itemStockCol.editableProperty();
-    	itemStockCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("quantity"));
+    	TableColumn<inventoryItem, String> itemUnitCol = new TableColumn<inventoryItem, String>("Unit");
+    	itemUnitCol.setMinWidth(50);
+    	itemUnitCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, String>("unit"));
+    	
+    	TableColumn<inventoryItem, String> itemOrderUnitCol = new TableColumn<inventoryItem, String>("OrderUnit");
+    	itemOrderUnitCol.setMinWidth(50);
+    	itemOrderUnitCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, String>("orderunit"));
     	
     	TableColumn<inventoryItem, Integer> itemVendorCol = new TableColumn<inventoryItem, Integer>("Vendor");
     	itemVendorCol.setMinWidth(50);
     	itemVendorCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("distributor"));
     	
     	mainTable.setItems(data);
-    	mainTable.getColumns().addAll(itemNumberCol, itemNameCol, itemStockCol);
+    	mainTable.getColumns().addAll(itemNumberCol, itemNameCol, itemUnitCol,itemOrderUnitCol, itemVendorCol);
     	
     	
     }

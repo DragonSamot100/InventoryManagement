@@ -2,7 +2,6 @@ package application;
 import java.io.File;
 import java.io.IOException;
 
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -220,7 +219,6 @@ public class viewController
     	
     	TableColumn<inventoryItem, Integer> itemStockCol = new TableColumn<inventoryItem, Integer>("Current Stock");
     	itemStockCol.setMinWidth(100);
-
     	itemStockCol.setEditable(true);
     	itemStockCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("quantity"));
     	itemStockCol.setCellFactory(TextFieldTableCell.<inventoryItem, Integer>forTableColumn(new IntegerStringConverter()));
@@ -231,24 +229,20 @@ public class viewController
     		DBController.updateStock(id, newStock);
     		
         });
+    	TableColumn<inventoryItem, String> itemUnitCol = new TableColumn<inventoryItem, String>("Unit");
+    	itemUnitCol.setMinWidth(50);
+    	itemUnitCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, String>("unit"));
+    	
+    	TableColumn<inventoryItem, String> itemOrderUnitCol = new TableColumn<inventoryItem, String>("OrderUnit");
+    	itemOrderUnitCol.setMinWidth(50);
+    	itemOrderUnitCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, String>("orderunit"));
     	
     	TableColumn<inventoryItem, Integer> itemVendorCol = new TableColumn<inventoryItem, Integer>("Vendor");
     	itemVendorCol.setMinWidth(50);
     	itemVendorCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("distributor"));
     	
     	currentInvTable.setItems(data);
-    	currentInvTable.getColumns().addAll(itemNumberCol, itemNameCol, itemStockCol, itemVendorCol);
-    	
-    	data.addListener(new ListChangeListener<inventoryItem>(){
-
-            @Override
-            public void onChanged(javafx.collections.ListChangeListener.Change<? extends inventoryItem> pChange) {
-                while(pChange.next()) 
-                {
-                    System.out.println("it worked");
-                }
-            }
-        });
+    	currentInvTable.getColumns().addAll(itemNumberCol, itemNameCol, itemStockCol, itemUnitCol,itemOrderUnitCol, itemVendorCol);
     	
     }
     

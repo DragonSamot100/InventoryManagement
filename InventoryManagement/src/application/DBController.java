@@ -99,7 +99,8 @@ public class DBController
 		while (resultSet.next()) 
 		{
 			inventoryItem item = new inventoryItem(resultSet.getString("item"), resultSet.getInt("productID"),
-					resultSet.getInt("quantity"), resultSet.getString("distributor"));
+					resultSet.getInt("quantity"), resultSet.getString("distributor"), 
+					resultSet.getString("unit"), resultSet.getString("orderunit"));
 			data.add(item);
 		}
 		return data;

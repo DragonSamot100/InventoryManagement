@@ -12,13 +12,17 @@ public class inventoryItem
     private StringProperty item = new SimpleStringProperty();
     private StringProperty distributor = new SimpleStringProperty();
     private IntegerProperty quantity = new SimpleIntegerProperty();
+    private StringProperty unit = new SimpleStringProperty();
+    private StringProperty orderunit = new SimpleStringProperty();
     
-	public inventoryItem(String name, int id, int stock, String vendor)
+	public inventoryItem(String name, int id, int stock, String vendor, String aUnit, String aOrderUnit)
 	{
 		item.set(name);
 		productID .set(id);
 		quantity.set(stock);
 		distributor.set(vendor);
+		unit.set(aUnit);
+		orderunit.set(aOrderUnit);
 	}
 	
 	public IntegerProperty productIDProperty() 
@@ -33,9 +37,17 @@ public class inventoryItem
     {
         return item;
     }
-    public StringProperty distributor() 
+    public StringProperty distributorProperty() 
     {
-        return item;
+        return distributor;
+    }
+    public StringProperty unitProperty() 
+    {
+        return unit;
+    }
+    public StringProperty orderunitProperty() 
+    {
+        return orderunit;
     }
     
     inventoryItem()
