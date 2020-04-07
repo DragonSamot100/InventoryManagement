@@ -87,12 +87,14 @@ public class manageController
     @FXML
     void addItem(ActionEvent event) 
     {	
-    	DBController.addInventory(nameField.getText(), null, null, null, data.size()+1, Integer.parseInt(stockField.getText()));
-    	inventoryItem item = new inventoryItem(nameField.getText(), data.size()+1, Integer.parseInt(stockField.getText()), null/**vendorField.getText()**/, null, null);
+    	DBController.addInventory(nameField.getText(), unitField.getText(), orderUnitField.getText(), vendorField.getText(), data.size()+1, Integer.parseInt(stockField.getText()));
+    	inventoryItem item = new inventoryItem(nameField.getText(), data.size()+1, Integer.parseInt(stockField.getText()), vendorField.getText(), unitField.getText(), orderUnitField.getText() );
     	data.add(item);
     	nameField.clear();
-
     	stockField.clear();
+    	vendorField.clear();
+    	unitField.clear();
+    	orderUnitField.clear();
     }
     @FXML
     void menuItemSelected(ActionEvent event) 
@@ -105,7 +107,6 @@ public class manageController
     {
     	
     	newItemGrid.setVisible(true);
-    	
     	
     	mainTable.getColumns().clear();
 
