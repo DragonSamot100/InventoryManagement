@@ -111,4 +111,19 @@ public class DBController
 		System.out.println("SQLState: " + e.getSQLState());
 		System.out.println("VendorError: " + e.getErrorCode());
 	}
+	public static boolean deleteItem(int productID, int deletedItem) {
+		getConnection();
+		String query = "DELETE FROM INVENTORY WHERE productID = ?;";
+		try {
+			PreparedStatement addStatement = connection.prepareStatement(query);
+			addStatement.setInt(1, deletedItem);
+			addStatement.setInt(2, productID);
+			addStatement.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			printSQLException(e);
+		}
+		return false;
+	}
 }
