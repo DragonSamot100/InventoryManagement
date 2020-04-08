@@ -70,7 +70,20 @@ public class DBController
 		}
 		return false;
 	}
-
+	public static boolean deleteItem(int productID) {
+		getConnection();
+		String query = "DELETE FROM INVENTORY WHERE productID = ?;";
+		try {
+			PreparedStatement addStatement = connection.prepareStatement(query);
+			addStatement.setInt(1, productID);
+			addStatement.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			printSQLException(e);
+		}
+		return false;
+	}
 	public static ObservableList<inventoryItem> getInventory() {
 		ObservableList<inventoryItem> data = null;
 		getConnection();
@@ -105,25 +118,10 @@ public class DBController
 		}
 		return data;
 	}
-	
 	private static void printSQLException(SQLException e) {
 		System.out.println("SQLException: " + e.getMessage());
 		System.out.println("SQLState: " + e.getSQLState());
 		System.out.println("VendorError: " + e.getErrorCode());
 	}
-	public static boolean deleteItem(int productID, int deletedItem) {
-		getConnection();
-		String query = "DELETE FROM INVENTORY WHERE productID = ?;";
-		try {
-			PreparedStatement addStatement = connection.prepareStatement(query);
-			addStatement.setInt(1, deletedItem);
-			addStatement.setInt(2, productID);
-			addStatement.execute();
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			printSQLException(e);
-		}
-		return false;
-	}
+	
 }
