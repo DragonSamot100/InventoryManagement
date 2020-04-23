@@ -4,15 +4,21 @@ import java.util.ArrayList;
 
 public class menuItem 
 {
-	int menuItemID;
-	public menuItem()
-	{
-		menuItemID++;
+
+	private ArrayList<inventoryItem> itemList;
+	private int menuID;
+	private static int menuIDcount = 0;
+	private String name;
+	
+	public menuItem(String itemName, ArrayList<inventoryItem> list){
+		name = itemName;
+		menuID = menuIDcount ++;
+		itemList = list;
 	}
 	
-	public menuItem(String name, ArrayList<inventoryItem> ingredients)
-	{
-		
+	public int getID() {
+		return menuID;
+
 	}
 	
 }
