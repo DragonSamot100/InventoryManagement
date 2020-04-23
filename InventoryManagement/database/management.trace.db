@@ -3466,3 +3466,23 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Workspace
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 92 more
+2020-04-07 18:46:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE  MENUITEM(
+MENUITEMS VARCHAR(100) PRIMARY KEY, 
+TYPES VARCHAR(100)[*]"; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, COMMENT, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE  MenuItem(
+Menuitems varchar(100) primary key, 
+types varchar(100) [42001-200]
+2020-04-07 18:47:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE  MENUITEM(
+MENUITEMS VARCHAR(100) PRIMARY KEY, 
+TYPES VARCHAR(100)[*]"; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, COMMENT, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE  MenuItem(
+Menuitems varchar(100) primary key, 
+types varchar(100) [42001-200]
+2020-04-07 18:50:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "IMENUITEMS" not found; SQL statement:
+SELECT * FROM IMENUITEMS [42102-200]
+2020-04-07 18:50:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "IMENUITEM" not found; SQL statement:
+SELECT * FROM IMENUITEM [42102-200]
