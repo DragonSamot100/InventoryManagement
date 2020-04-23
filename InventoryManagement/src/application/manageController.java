@@ -2,14 +2,19 @@ package application;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -27,7 +32,11 @@ public class manageController
 	Parent root;
 	Stage manageStage = new Stage();
 	ObservableList<inventoryItem> data = DBController.getInventory();
-	 @FXML
+	int currentItemID;
+	ContextMenu contextMenu = new ContextMenu();
+	MenuItem deleteItemMenu = new MenuItem("Delete");
+	EventHandler<ActionEvent> deleteEvent = deleteItem();
+	@FXML
 	    private VBox vBoxManageFrame;
 
 	    @FXML
@@ -55,11 +64,11 @@ public class manageController
 	    private TableView<inventoryItem> mainTable;
 
 	    @FXML
-	    private ContextMenu contextMenu;
-
-	    @FXML
 	    private MenuItem item1;
-
+	    
+	    @FXML
+	    private MenuItem item2;
+	    
 	    @FXML
 	    private GridPane newItemGrid;
 
@@ -109,10 +118,15 @@ public class manageController
     	newItemGrid.setVisible(true);
     	
     	mainTable.getColumns().clear();
-
+    	contextMenu.getItems().add(deleteItemMenu);
+    	mainTable.setContextMenu(contextMenu);
+    	deleteItemMenu.setOnAction(deleteEvent);
+    	
     	TableColumn<inventoryItem, String> itemNameCol = new TableColumn<inventoryItem, String>("Inventory Item");
     	itemNameCol.setMinWidth(200);
     	itemNameCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, String>("item"));
+    	
+    	
     	
     	TableColumn<inventoryItem, Integer> itemNumberCol = new TableColumn<inventoryItem, Integer>("ID");
     	itemNumberCol.setMinWidth(50);
@@ -229,6 +243,79 @@ public class manageController
 		{
             e.printStackTrace();
 		}
+    }  
+    @FXML
+    void getRowClicked(ActionEvent event) 
+    {
+    	try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewInventory.fxml"));
+			root = loader.load();
+			loader.setController("viewController");
+            manageStage.setTitle("Denunzio's Inventory Management Tools");
+            manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+            manageStage.setScene(new Scene(root, 900, 600));
+            manageStage.setResizable(false);
+            manageStage.show();
+            Stage stage = (Stage) vBoxManageFrame.getScene().getWindow();
+            stage.hide();
+        }
+        catch (IOException e) 
+		{
+            e.printStackTrace();
+		}
+    }  
+
+    EventHandler<ActionEvent> deleteItem(){
+    	return new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				inventoryItem current = mainTable.getSelectionModel().getSelectedItem();
+				currentItemID = current.productIDProperty().get();
+		    	Alert alert = new Alert(AlertType.CONFIRMATION, "Do you wish to remove this item from the database?");
+		    	Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();	
+		    	alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+		    	alert.setTitle("Item Deletion Confirmation");
+		    	alert.getDialogPane().setHeader(null);
+		    	alert.setHeaderText(null);
+		    	alert.setGraphic(null);
+		    
+		    	
+		    	Optional<ButtonType> result = alert.showAndWait();
+		    	if (result.get() == ButtonType.OK)
+		    	{
+		    		DBController.deleteItem(currentItemID);
+		    		data.remove(current);
+		    	} 
+		    	else 
+		    	{
+		    		alert.close();
+		    	}
+		}
+	};
+		
+
+    }  
+    @FXML
+    void modifyItem(ActionEvent event) 
+    {
+//    	Alert alert = new Alert(AlertType.CONFIRMATION);
+//    	alert.setTitle("Inventory Item Deletion");
+//    	alert.setHeaderText("Do you wish to delete this item?");
+//    	alert.setContentText("INSERTITEMNAMEHEREWHENEVERIGETITTOWORK");
+//
+//    	ButtonType buttonTypeOne = new ButtonType("One");
+//    	ButtonType buttonTypeTwo = new ButtonType("Two");
+//    	ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+//
+//    	alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+//
+//    	Optional<ButtonType> result = alert.showAndWait();
+//    	if (result.get() == buttonTypeOne){
+//    	    // ... user chose "One"
+//    	} else if (result.get() == buttonTypeTwo) {
+//    	    // ... user chose "Two"
+//    	} else {
+//    	    // ... user chose CANCEL or closed the dialog
+//    	}
     }  
 
 }
