@@ -33,9 +33,7 @@ public class manageController
 	Stage manageStage = new Stage();
 	ObservableList<inventoryItem> data = DBController.getInventory();
 	int currentItemID;
-	ContextMenu contextMenu = new ContextMenu();
-	MenuItem deleteItemMenu = new MenuItem("Delete");
-	EventHandler<ActionEvent> deleteEvent = deleteItem();
+	
 	@FXML
 	    private VBox vBoxManageFrame;
 
@@ -114,19 +112,20 @@ public class manageController
     @FXML
     void selectInvItems(ActionEvent event) throws SQLException 
     {
+    	ContextMenu contextMenu = new ContextMenu();
+    	MenuItem deleteItemMenu = new MenuItem("Delete");
+    	EventHandler<ActionEvent> deleteEvent = deleteItem();
+    	contextMenu.getItems().add(deleteItemMenu);
+    	deleteItemMenu.setOnAction(deleteEvent);
     	
     	newItemGrid.setVisible(true);
-    	
     	mainTable.getColumns().clear();
-    	contextMenu.getItems().add(deleteItemMenu);
     	mainTable.setContextMenu(contextMenu);
-    	deleteItemMenu.setOnAction(deleteEvent);
+    	
     	
     	TableColumn<inventoryItem, String> itemNameCol = new TableColumn<inventoryItem, String>("Inventory Item");
     	itemNameCol.setMinWidth(200);
     	itemNameCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, String>("item"));
-    	
-    	
     	
     	TableColumn<inventoryItem, Integer> itemNumberCol = new TableColumn<inventoryItem, Integer>("ID");
     	itemNumberCol.setMinWidth(50);
@@ -154,6 +153,7 @@ public class manageController
     void selectMenuItems(ActionEvent event) 
     {
     	mainTable.getColumns().clear();
+    	mainTable.setContextMenu(null);
     	TableColumn menuItem = new TableColumn("Product Name");
         menuItem.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -168,6 +168,7 @@ public class manageController
     void selectVendors(ActionEvent event) 
     {
     	mainTable.getColumns().clear();
+    	mainTable.setContextMenu(null);
     	TableColumn vendorName = new TableColumn("Vendor Name");
         vendorName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
