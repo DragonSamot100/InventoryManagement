@@ -23,9 +23,8 @@ public class DBController
 			try {
 				Class.forName("org.h2.Driver");
 			} catch (Exception e) {
-				System.out.println(e.getMessage() + "\n");
+				
 			}
-
 			try {
 				connection = DriverManager.getConnection(url, user, pass);
 			} catch (SQLException e) {
@@ -54,7 +53,22 @@ public class DBController
 		}
 		return false;
 	}
-
+	public static boolean addMenuItem(int menuNum, Object food, double parsValue) {
+		getConnection();
+		String query = "Insert into menuItems (MENU,OBJECT,PARSVALUE) values (?, ?, ?)";
+		try {
+			PreparedStatement addStatement = connection.prepareStatement(query);
+			addStatement.setInt(1, menuNum);
+			addStatement.setObject(2, food);
+			addStatement.setDouble(3, parsValue);
+			addStatement.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			printSQLException(e);
+		}
+		return false;
+	}
 	public static boolean updateStock(int productID, int newStock) {
 		getConnection();
 		String query = "UPDATE inventory SET quantity = ? where productID = ?";
