@@ -16,7 +16,7 @@
 
 <VBox fx:id="homePage" alignment="TOP_CENTER" cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: brown; -fx-border-color: burlywood;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.mainController">
               <children>
-                  <GridPane fx:id="homeGrid" alignment="CENTER" hgap="3.0" style="-fx-background-color: white;" vgap="3.0" VBox.vgrow="ALWAYS">
+                  <GridPane fx:id="homeGrid" alignment="CENTER" hgap="3.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="450.0" prefWidth="234.0" style="-fx-background-color: white;" vgap="3.0" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                       <ColumnConstraints hgrow="NEVER" />
                     </columnConstraints>
@@ -27,12 +27,9 @@
                       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" vgrow="NEVER" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="0.0" prefHeight="32.0" vgrow="NEVER" />
             <RowConstraints maxHeight="-Infinity" minHeight="50.0" prefHeight="50.0" />
+            <RowConstraints maxHeight="-Infinity" minHeight="50.0" prefHeight="50.0" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="selectViewInv" mnemonicParsing="false" onAction="#handleViewbutton" prefWidth="128.0" text="View Inventory" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                        <Button fx:id="selectManageInv" mnemonicParsing="false" onAction="#handleManagebutton" prefWidth="128.0" text="Manage Inventory" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Button fx:id="selectManageMenu" alignment="CENTER" layoutX="63.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleMenubutton" prefWidth="128.0" text="Manage Menu" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                        <Button mnemonicParsing="false" onAction="#handlePARSbutton" prefWidth="96.0" text="PARS" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
                         <ImageView fitHeight="198.0" fitWidth="198.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
                            <image>
                               <Image url="@200793_214700351877791_3889649_n.jpg" />
@@ -41,10 +38,18 @@
                               <Insets />
                            </GridPane.margin>
                         </ImageView>
+                        <Button fx:id="selectViewInv" mnemonicParsing="false" onAction="#handleViewbutton" prefWidth="128.0" text="View Inventory" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Button fx:id="selectManageInv" mnemonicParsing="false" onAction="#handleManagebutton" prefWidth="128.0" text="Manage Inventory" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Button fx:id="selectManageMenu" alignment="CENTER" layoutX="63.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleMenubutton" prefWidth="128.0" text="Manage Menu" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#handlePARSbutton" prefWidth="96.0" text="PARS" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+            <Button fx:id="editLogin" disable="true" maxWidth="69.0" minWidth="69.0" mnemonicParsing="false" onAction="#updateCredentials" prefWidth="69.0" text="Edit Login" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
                      </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+         <padding>
+            <Insets top="46.0" />
+         </padding>
                   </GridPane>
                 <HBox id="HBox" alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" spacing="5.0" VBox.vgrow="NEVER">
                   <children>
