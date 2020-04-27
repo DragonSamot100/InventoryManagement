@@ -53,7 +53,7 @@ public class DBController
 		}
 		return false;
 	}
-	public static boolean addMenuItem(int menuNum, Object food, double parsValue) {
+	public static boolean addMenuItem(int menuNum, menuItem food, double parsValue) {
 		getConnection();
 		String query = "Insert into menuItems (MENU,OBJECT,PARSVALUE) values (?, ?, ?)";
 		try {
@@ -69,6 +69,7 @@ public class DBController
 		}
 		return false;
 	}
+	
 	public static boolean updateStock(int productID, int newStock) {
 		getConnection();
 		String query = "UPDATE inventory SET quantity = ? where productID = ?";
@@ -120,7 +121,28 @@ public class DBController
 		}
 		return data;
 	}
-
+	public static ArrayList<menuItem> getMenu() {
+		ArrayList<menuItem> dataMenu = new ArrayList<>();
+		getConnection();
+		ResultSet resultSet = null;
+		try {
+			String query = "SELECT * FROM menuItems";
+            Statement stmt = connection.createStatement();
+            resultSet = stmt.executeQuery(query);
+            
+            while (resultSet.next()) 
+    		{
+    			menuItem item = (menuItem) resultSet.getObject(2);
+    			dataMenu.add(item);
+    		}
+    		return dataMenu;
+            
+            
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
+		return null;
+	}
 	private static ArrayList<inventoryItem> dataBaseArrayList(ResultSet resultSet) throws SQLException {
 		ArrayList<inventoryItem> data = new ArrayList<>();
 		while (resultSet.next()) 
@@ -132,10 +154,20 @@ public class DBController
 		}
 		return data;
 	}
+//	private static ArrayList<menuItem> dataBaseArrayListMenu(ResultSet resultSet) throws SQLException {
+//		ArrayList<menuItem> dataMenu = new ArrayList<>();
+//		while (resultSet.next()) 
+//		{
+//			menuItem item = (menuItem) resultSet.getObject(2);
+//			dataMenu.add(item);
+//		}
+//		return dataMenu;
+//		}
 	private static void printSQLException(SQLException e) {
 		System.out.println("SQLException: " + e.getMessage());
 		System.out.println("SQLState: " + e.getSQLState());
 		System.out.println("VendorError: " + e.getErrorCode());
 	}
+	
 	
 }
