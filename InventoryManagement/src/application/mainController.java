@@ -169,7 +169,7 @@ public class mainController
 		}
 	}
 	@FXML
-	void editCredentials(ActionEvent event) 
+	void updateCredentials(ActionEvent event) 
 	{
 		
 	}

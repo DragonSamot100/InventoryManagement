@@ -21,7 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,7 +36,7 @@ public class viewController
     private Button importButton;
     
     @FXML
-    private VBox vBoxViewFrame;
+    private HBox HBoxParent;
     
     @FXML
     private Button exportButton;
@@ -128,7 +128,7 @@ public class viewController
             manageStage.setScene(new Scene(root, 900, 600));
             manageStage.setResizable(false);
             manageStage.show();
-            Stage stage = (Stage) vBoxViewFrame.getScene().getWindow();
+            Stage stage = (Stage) HBoxParent.getScene().getWindow();
             stage.hide();
         }
         catch (IOException e) 
@@ -151,7 +151,7 @@ public class viewController
             manageStage.setScene(new Scene(root, 900, 600));
             manageStage.setResizable(false);
             manageStage.show();
-            Stage stage = (Stage) vBoxViewFrame.getScene().getWindow();
+            Stage stage = (Stage) HBoxParent.getScene().getWindow();
             stage.hide();
         }
         catch (IOException e) 
@@ -174,7 +174,7 @@ public class viewController
             manageStage.setScene(new Scene(root, 900, 600));
             manageStage.setResizable(false);
             manageStage.show();
-            Stage stage = (Stage) vBoxViewFrame.getScene().getWindow();
+            Stage stage = (Stage) HBoxParent.getScene().getWindow();
             stage.hide();
         }
         catch (IOException e) 
@@ -184,26 +184,6 @@ public class viewController
     	
     }
 
-    @FXML
-    void selectMenuItemView(ActionEvent event) 
-    {
-    	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewInventory.fxml"));
-			root = loader.load();
-			loader.setController("viewController");
-            manageStage.setTitle("Denunzio's Inventory Management Tools");
-            manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-            manageStage.setScene(new Scene(root, 900, 600));
-            manageStage.setResizable(false);
-            manageStage.show();
-            Stage stage = (Stage) vBoxViewFrame.getScene().getWindow();
-            stage.hide();
-        }
-        catch (IOException e) 
-		{
-            e.printStackTrace();
-		}
-    }
     @FXML
     public void initialize() 
     {

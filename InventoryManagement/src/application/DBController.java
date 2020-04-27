@@ -15,8 +15,8 @@ public class DBController
 {
 	private static Connection connection;
 	private static final String url = "jdbc:h2:.\\database\\management";
-	private static final String user = "sa";
-	private static final String pass = "";
+	private static String user = "sa";
+	private static String pass = "";
 
 	public static Connection getConnection() {
 		if (connection == null) {
@@ -53,14 +53,13 @@ public class DBController
 		}
 		return false;
 	}
-	public static boolean addMenuItem(int menuNum, menuItem food, double parsValue) {
+	public static boolean addMenuItem(int menuNum, menuItem food) {
 		getConnection();
-		String query = "Insert into menuItems (MENU,OBJECT,PARSVALUE) values (?, ?, ?)";
+		String query = "Insert into menuItems (MENU,OBJECT,PARSVALUE) values (?, ?)";
 		try {
 			PreparedStatement addStatement = connection.prepareStatement(query);
 			addStatement.setInt(1, menuNum);
 			addStatement.setObject(2, food);
-			addStatement.setDouble(3, parsValue);
 			addStatement.execute();
 			return true;
 		} catch (SQLException e) {
@@ -121,27 +120,51 @@ public class DBController
 		}
 		return data;
 	}
-	public static ArrayList<menuItem> getMenu() {
-		ArrayList<menuItem> dataMenu = new ArrayList<>();
+	public static ObservableList<menuItem> getMenu() {
+		ObservableList<menuItem> dataMenu = null;
 		getConnection();
 		ResultSet resultSet = null;
 		try {
 			String query = "SELECT * FROM menuItems";
             Statement stmt = connection.createStatement();
             resultSet = stmt.executeQuery(query);
-            
-            while (resultSet.next()) 
-    		{
-    			menuItem item = (menuItem) resultSet.getObject(2);
-    			dataMenu.add(item);
-    		}
-    		return dataMenu;
-            
-            
+
 		} catch (SQLException e) {
+			e.printStackTrace();
 			printSQLException(e);
 		}
-		return null;
+
+		try {
+			dataMenu = FXCollections.observableArrayList(getMenuItems(resultSet));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			printSQLException(e);
+		}
+		return dataMenu;
+	}
+	public static ArrayList<menuItem> getMenuItems(ResultSet resultSet) throws SQLException {
+		ArrayList<menuItem> dataMenu = new ArrayList<>();
+        while (resultSet.next()) 
+    	{
+    		menuItem item = (menuItem) resultSet.getObject(2);
+    		dataMenu.add(item);
+    	}
+    	return dataMenu;
+	}
+	public static int getMenuItemsSize(){
+		int length = 0;
+		getConnection();    
+		ResultSet resultSet = null;
+		try {
+			String query = "SELECT COUNT(*) FROM menuItems";
+            Statement stmt = connection.createStatement();
+            resultSet = stmt.executeQuery(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			printSQLException(e);
+		}
+		return length;
 	}
 	private static ArrayList<inventoryItem> dataBaseArrayList(ResultSet resultSet) throws SQLException {
 		ArrayList<inventoryItem> data = new ArrayList<>();
@@ -154,15 +177,6 @@ public class DBController
 		}
 		return data;
 	}
-//	private static ArrayList<menuItem> dataBaseArrayListMenu(ResultSet resultSet) throws SQLException {
-//		ArrayList<menuItem> dataMenu = new ArrayList<>();
-//		while (resultSet.next()) 
-//		{
-//			menuItem item = (menuItem) resultSet.getObject(2);
-//			dataMenu.add(item);
-//		}
-//		return dataMenu;
-//		}
 	private static void printSQLException(SQLException e) {
 		System.out.println("SQLException: " + e.getMessage());
 		System.out.println("SQLState: " + e.getSQLState());

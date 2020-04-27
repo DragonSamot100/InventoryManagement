@@ -32,6 +32,7 @@ public class manageController
 	Parent root;
 	Stage manageStage = new Stage();
 	ObservableList<inventoryItem> data = DBController.getInventory();
+	ObservableList<menuItem> dataMenu = DBController.getMenu();
 	int currentItemID;
 	
 	@FXML
@@ -155,13 +156,20 @@ public class manageController
     	mainTable.getColumns().clear();
     	mainTable.setContextMenu(null);
     	
-    	TableColumn menuItem = new TableColumn("Product Name");
-        menuItem.setCellValueFactory(new PropertyValueFactory<>("name"));
+    	TableColumn menuItemID = new TableColumn("ID");
+        menuItemID.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
+    	TableColumn menuItemType = new TableColumn("Product Type");
+        menuItemType.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
+    	TableColumn menuItemName = new TableColumn("Menu Item");
+        menuItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn idNum = new TableColumn("ID");
-        idNum.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-        mainTable.getColumns().addAll(idNum, menuItem);
+        TableColumn menuPARS = new TableColumn("PARS Value");
+        menuPARS.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
+        //mainTable.setItems(dataMenu);
+        mainTable.getColumns().addAll(menuItemID, menuItemName, menuItemType, menuPARS);
 
     }
 
