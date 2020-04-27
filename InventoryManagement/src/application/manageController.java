@@ -154,6 +154,7 @@ public class manageController
     {
     	mainTable.getColumns().clear();
     	mainTable.setContextMenu(null);
+    	
     	TableColumn menuItem = new TableColumn("Product Name");
         menuItem.setCellValueFactory(new PropertyValueFactory<>("name"));
 
