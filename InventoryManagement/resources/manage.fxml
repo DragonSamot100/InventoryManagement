@@ -7,6 +7,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -15,6 +17,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -81,82 +84,102 @@
                   </MenuButton>
                </children>
             </GridPane>
-            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-border-color: brown;" HBox.hgrow="ALWAYS">
+            <StackPane alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" HBox.hgrow="NEVER">
                <children>
-                  <TableView fx:id="mainTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tableMenuButtonVisible="true">
-                     <effect>
-                        <InnerShadow />
-                     </effect>
-                  </TableView>
-                  <GridPane fx:id="newItemGrid" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="700.0" prefHeight="100.0" prefWidth="700.0" style="-fx-background-color: white;" vgap="3.0" visible="false" VBox.vgrow="ALWAYS">
-                    <columnConstraints>
-                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="250.0" prefWidth="250.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" />
-                      <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <effect>
-                        <InnerShadow />
-                     </effect>
+                  <VBox fx:id="inventoryItemVBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-border-color: brown;" visible="false" StackPane.alignment="TOP_CENTER">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="80.0" text="Item Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                        </Label>
-                        <TextField fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-                        <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItem" prefHeight="60.0" prefWidth="95.0" text="Add New Item" wrapText="true" GridPane.columnIndex="5" GridPane.rowSpan="3">
-                           <GridPane.margin>
-                              <Insets left="5.0" />
-                           </GridPane.margin>
-                        </Button>
-                        <Label prefHeight="25.0" prefWidth="80.0" text="Distributor" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="vendorField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label prefHeight="25.0" prefWidth="80.0" text="Quantity" textAlignment="JUSTIFY" GridPane.columnIndex="4" GridPane.halignment="CENTER">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="stockField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="25.0" GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
-                        <Label prefHeight="25.0" prefWidth="80.0" text="Unit Type" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="25.0" prefWidth="100.0" text="Ordered Unit" textAlignment="JUSTIFY" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="25.0" prefWidth="100.0" text="Station" textAlignment="JUSTIFY" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="unitField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <TextField fx:id="stationField" editable="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" promptText="DoesNothing" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                        <TextField fx:id="orderUnitField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <TableView fx:id="mainTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="700.0" tableMenuButtonVisible="true">
+                           <effect>
+                              <InnerShadow />
+                           </effect>
+                        </TableView>
+                        <GridPane fx:id="newItemGrid" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="700.0" prefHeight="100.0" prefWidth="700.0" style="-fx-background-color: white;" vgap="3.0" VBox.vgrow="ALWAYS">
+                          <columnConstraints>
+                              <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="250.0" prefWidth="250.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" />
+                            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <effect>
+                              <InnerShadow />
+                           </effect>
+                           <children>
+                              <Label prefHeight="25.0" prefWidth="80.0" text="Item Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <TextField fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+                              <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItem" prefHeight="60.0" prefWidth="95.0" text="Add New Item" wrapText="true" GridPane.columnIndex="5" GridPane.rowSpan="3">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" />
+                                 </GridPane.margin>
+                              </Button>
+                              <Label prefHeight="25.0" prefWidth="80.0" text="Distributor" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="vendorField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label prefHeight="25.0" prefWidth="80.0" text="Quantity" textAlignment="JUSTIFY" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="stockField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="25.0" GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
+                              <Label prefHeight="25.0" prefWidth="80.0" text="Unit Type" textAlignment="JUSTIFY" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="25.0" prefWidth="100.0" text="Ordered Unit" textAlignment="JUSTIFY" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="25.0" prefWidth="100.0" text="Station" textAlignment="JUSTIFY" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="unitField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <TextField fx:id="stationField" editable="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" promptText="DoesNothing" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <TextField fx:id="orderUnitField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
                      </children>
-                  </GridPane>
+                     <padding>
+                        <Insets right="1.0" />
+                     </padding>
+                  </VBox>
+                  <VBox fx:id="menuItemVBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-border-color: brown;">
+                     <children>
+                        <TreeTableView maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" tableMenuButtonVisible="true">
+                          <columns>
+                            <TreeTableColumn prefWidth="75.0" text="C1" />
+                            <TreeTableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                           <effect>
+                              <InnerShadow />
+                           </effect>
+                        </TreeTableView>
+                     </children>
+                     <padding>
+                        <Insets right="1.0" />
+                     </padding>
+                  </VBox>
                </children>
-               <padding>
-                  <Insets right="1.0" />
-               </padding>
-            </VBox>
+            </StackPane>
          </children>
       </HBox>
    </children>
