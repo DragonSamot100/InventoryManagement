@@ -15,6 +15,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -69,6 +71,9 @@ public class viewController
     private Label dateLabel;
     
     @FXML
+    private TabPane tableTabContainer;
+    
+    @FXML
     public TableView<inventoryItem> currentInvTable;
 
     
@@ -94,10 +99,16 @@ public class viewController
     @FXML
     void importSheet(ActionEvent event) 
     {
-    	//imports a chosen xcell sheet
+    	TableView<inventoryItem> newTable = currentInvTable;
+
     	FileChooser fileChooser = new FileChooser();
     	Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
     	File selectedFile = fileChooser.showOpenDialog(stage);
+    	
+    	String tabname = ("Table" + tableTabContainer.getTabs().size());
+    	Tab newTab = new Tab(tabname, newTable);
+    	tableTabContainer.getTabs().add(newTab);
+    	newTab.setClosable(true);
     }
 
     @FXML

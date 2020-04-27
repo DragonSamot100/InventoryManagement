@@ -99,9 +99,9 @@
             </MenuButton>
          </children>
       </GridPane>
-      <TabPane centerShape="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="700.0" rotateGraphic="true" side="BOTTOM" style="-fx-border-color: brown;" tabMaxHeight="25.0" tabMaxWidth="50.0" tabMinHeight="25.0" tabMinWidth="50.0">
+      <TabPane fx:id="tableTabContainer" centerShape="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="600.0" prefWidth="700.0" rotateGraphic="true" side="BOTTOM" style="-fx-border-color: brown;" tabMaxHeight="25.0" tabMaxWidth="50.0" tabMinHeight="25.0" tabMinWidth="50.0">
          <tabs>
-            <Tab closable="false" text="Inventory">
+            <Tab fx:id="currentInventoryTab" closable="false" text="Inventory">
                <content>
                   <TableView fx:id="currentInvTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="624.0" tableMenuButtonVisible="true">
                      <opaqueInsets>
