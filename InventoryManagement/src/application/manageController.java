@@ -35,9 +35,15 @@ public class manageController
 	ObservableList<menuItem> dataMenu = DBController.getMenu();
 	int currentItemID;
 	
-	@FXML
+		@FXML
 	    private VBox vBoxManageFrame;
-
+		
+		@FXML
+	    private VBox inventoryItemVBox;
+		
+		@FXML
+	    private VBox menuItemVBox;
+		
 	    @FXML
 	    private Button invItems;
 
@@ -119,7 +125,7 @@ public class manageController
     	contextMenu.getItems().add(deleteItemMenu);
     	deleteItemMenu.setOnAction(deleteEvent);
     	
-    	newItemGrid.setVisible(true);
+    	inventoryItemVBox.setVisible(true);
     	mainTable.getColumns().clear();
     	mainTable.setContextMenu(contextMenu);
     	
@@ -153,6 +159,8 @@ public class manageController
     @FXML
     void selectMenuItems(ActionEvent event) 
     {
+    	inventoryItemVBox.setVisible(false);
+    	menuItemVBox.setVisible(true);
     	mainTable.getColumns().clear();
     	mainTable.setContextMenu(null);
     	
