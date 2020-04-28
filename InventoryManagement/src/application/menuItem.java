@@ -4,13 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class menuItem implements Serializable{
-/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	private int menuID;
-	private static int menuIDcount = 0;
 	
 	private String name = null;
 	private String itemType = null;
@@ -23,8 +20,7 @@ public class menuItem implements Serializable{
 		this.itemType = itemKey;
 		this.parsValue = pars;
 		this.srcList = itemList; 
-		menuID = DBController.getMenuItemsSize();
-		
+		menuID = DBController.getMenuItemsSize()+1;
 	}
 	public String getName() 
 	{
