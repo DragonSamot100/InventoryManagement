@@ -147,7 +147,10 @@ public class DBController
 			String query = "SELECT COUNT(*) FROM menuItems";
             Statement stmt = connection.createStatement();
             resultSet = stmt.executeQuery(query);
-            length = resultSet.getFetchSize();
+            if (resultSet.next()) {
+            	length = resultSet.getInt(1);
+            }
+            
 		} catch (SQLException e) {
 			e.printStackTrace();
 			printSQLException(e);
@@ -193,6 +196,7 @@ public class DBController
 		}
 		return data;
 	}
+	
 	private static void printSQLException(SQLException e) {
 		System.out.println("SQLException: " + e.getMessage());
 		System.out.println("SQLState: " + e.getSQLState());
@@ -208,6 +212,22 @@ public class DBController
 			Statement stmt = connection.createStatement();
 			resultSet = stmt.executeQuery(query);
 			data = dataBaseArrayList(resultSet);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			printSQLException(e);
+		}
+		return data;
+	}
+	
+	public static ArrayList<menuItem> getMenuAsArray() {
+		getConnection();
+		ResultSet resultSet = null;
+		ArrayList<menuItem> data = new ArrayList();
+		try {
+			String query = "SELECT * FROM menuItems";
+			Statement stmt = connection.createStatement();
+			resultSet = stmt.executeQuery(query);
+			data = getMenuItems(resultSet);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			printSQLException(e);
