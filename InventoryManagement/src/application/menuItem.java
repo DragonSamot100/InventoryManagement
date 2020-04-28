@@ -10,25 +10,22 @@ public class menuItem implements Serializable{
 	private int menuID;
 	
 	private String name = null;
-	private String itemType = null;
 	private ArrayList<String> recipeList;
 	private double parsValue;
 	private ArrayList<Double> portionList;
 	
-	public menuItem(String item, String itemKey, ArrayList<String> itemList, ArrayList<Double> portions, double pars)
+	public menuItem(String item, ArrayList<String> itemList, ArrayList<Double> portions, double pars)
 	{
 		name = item;
-		itemType = itemKey;
 		parsValue = pars;
 		recipeList = itemList; 
 		portionList = portions;
 		menuID = DBController.getMenuItemsSize()+1;
 	}
 	
-	public menuItem(String item, String itemKey, ArrayList<String> itemList, ArrayList<Double> portions)
+	public menuItem(String item, ArrayList<String> itemList, ArrayList<Double> portions)
 	{
 		name = item;
-		itemType = itemKey;
 		parsValue = 1.25;
 		recipeList = itemList;
 		portionList = portions;
@@ -43,16 +40,6 @@ public class menuItem implements Serializable{
 	public void setName(String item) 
 	{
 		name = item;
-	}
-	
-	public String itemType() 
-	{
-		return itemType;
-	}
-	
-	public void setitemType(String itemKey) 
-	{
-		itemType = itemKey;
 	}
 	
 	public double parsValue() 
