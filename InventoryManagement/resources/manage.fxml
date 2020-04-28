@@ -181,9 +181,9 @@
                         <Insets right="1.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="menuItemVBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-border-color: brown;">
+                  <VBox fx:id="menuItemVBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-border-color: brown;" visible="false">
                      <children>
-                        <TreeTableView fx:id="treeTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" tableMenuButtonVisible="true">
+                        <TreeTableView fx:id="treeTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" tableMenuButtonVisible="true">
                            <effect>
                               <InnerShadow />
                            </effect>
