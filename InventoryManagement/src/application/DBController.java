@@ -183,5 +183,25 @@ public class DBController
 		System.out.println("VendorError: " + e.getErrorCode());
 	}
 	
-	
+	public static ArrayList<inventoryItem> getInventoryAsArray() {
+		getConnection();
+		ResultSet resultSet = null;
+		try {
+			String query = "SELECT * FROM inventory";
+			Statement stmt = connection.createStatement();
+			resultSet = stmt.executeQuery(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			printSQLException(e);
+		}
+		ArrayList<inventoryItem> data = new ArrayList();
+		try {
+			data = dataBaseArrayList(resultSet);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			printSQLException(e);
+		}
+		return data;
+	}
 }
