@@ -132,6 +132,7 @@ public class manageController
     	contextMenu.getItems().add(deleteItemMenu);
     	deleteItemMenu.setOnAction(deleteEvent);
     	
+    	menuItemVBox.setVisible(false);
     	inventoryItemVBox.setVisible(true);
     	mainTable.getColumns().clear();
     	mainTable.setContextMenu(contextMenu);
@@ -171,29 +172,21 @@ public class manageController
     	mainTable.getColumns().clear();
     	mainTable.setContextMenu(null);
     	
-    	TreeTableColumn<menuItem, String> treeTableColumn1 = new TreeTableColumn<>("Product Type");
-    	TreeTableColumn<menuItem, String> treeTableColumn2 = new TreeTableColumn<>("Menu Item");
+    	TreeTableColumn<menuItem, String> menuItemName = new TreeTableColumn<>("Product Type");
+    	TreeTableColumn<menuItem, String> menuItemType = new TreeTableColumn<>("Menu Item");
 
-    	treeTableColumn1.setCellValueFactory(new TreeItemPropertyValueFactory<>("brand"));
-    	treeTableColumn2.setCellValueFactory(new TreeItemPropertyValueFactory<>("model"));
-
-    	treeTable.getColumns().add(treeTableColumn1);
-    	treeTable.getColumns().add(treeTableColumn2);
+    	menuItemName.setCellValueFactory(new TreeItemPropertyValueFactory<>("item"));
+    	menuItemType.setCellValueFactory(new TreeItemPropertyValueFactory<>("itemType"));
+    	int i = 0;
+    	while(dataMenu.size()>=i)
+    	{
+    		TreeItem<w> root = new TreeItem<String>("Root Node");
+    		TreeItem food = new TreeItem.(dataMenu.get(0));;
+    		
+    		i++;
+    	}
     	
-    	while
-        
-    	TableColumn menuItemType = new TableColumn("Product Type");
-        menuItemType.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
-    	TableColumn menuItemName = new TableColumn("Menu Item");
-        menuItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
-        TableColumn menuItemID = new TableColumn("ID");
-        menuItemID.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
-        TableColumn menuPARS = new TableColumn("PARS Value");
-        menuPARS.setCellValueFactory(new PropertyValueFactory<>("name"));
-
+    	treeTable.getColumns().addAll(menuItemName, menuItemType);
 
     }
 
