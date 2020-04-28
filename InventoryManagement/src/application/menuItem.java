@@ -10,54 +10,75 @@ public class menuItem implements Serializable{
 	private int menuID;
 	
 	private String name = null;
-	private String itemType = null;
-	private ArrayList<String> srcList;
+	private ArrayList<String> recipeList;
 	private double parsValue;
+	private ArrayList<Double> portionList;
 	
-	public menuItem(String item, String itemKey, ArrayList<String> itemList, double pars)
+	public menuItem(String item, ArrayList<String> itemList, ArrayList<Double> portions, double pars)
 	{
-		this.name = item;
-		this.itemType = itemKey;
-		this.parsValue = pars;
-		this.srcList = itemList; 
+		name = item;
+		parsValue = pars;
+		recipeList = itemList; 
+		portionList = portions;
 		menuID = DBController.getMenuItemsSize()+1;
 	}
+	
+	public menuItem(String item, ArrayList<String> itemList, ArrayList<Double> portions)
+	{
+		name = item;
+		parsValue = 1.25;
+		recipeList = itemList;
+		portionList = portions;
+		menuID = DBController.getMenuItemsSize()+1;
+	}
+	
 	public String getName() 
 	{
 		return name;
 	}
+	
 	public void setName(String item) 
 	{
 		name = item;
 	}
-	public String itemType() 
+	
+	public double parsValue() 
 	{
-		return itemType;
+		return parsValue;
 	}
-	public void setitemType(String itemKey) 
-	{
-		itemType = itemKey;
-	}
-	public String parsValue() 
-	{
-		return itemType;
-	}
+	
 	public void setparsValue(double pars) 
 	{
 		parsValue = pars;
 	}
-	public ArrayList<String> getMenuItemList() 
+	
+	public ArrayList<String> getRecipe() 
 	{
-		return srcList;
+		return recipeList;
 	}
-	public void addMenuIngrd(String ingrd) 
+	
+	public ArrayList<Double> getPortions(){
+		return portionList;
+	}
+	
+	public boolean addMenuIngrd(String ingrd, double portion) 
 	{
-		srcList.add(ingrd);
+		recipeList.add(ingrd);
+		portionList.add(portion);
+		return true;
 	}
+	
+	public boolean addMenuIngrd(inventoryItem ingrd, double portion) {
+		recipeList.add(ingrd.itemProperty().get());
+		portionList.add(portion);
+		return true;
+	}
+	
 	public int getID() 
 	{
 		return menuID;
 	}
+	
 	
 	menuItem()
 	{

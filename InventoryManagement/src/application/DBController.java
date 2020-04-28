@@ -174,7 +174,7 @@ public class DBController
 	
 	public static boolean deleteMenuItem(int ID) {
 		getConnection();
-		String query = "DELETE from menuItems where menu = "+ID;
+		String query = "DELETE from menuItems where menu = ?";
 		try {
 			PreparedStatement addStatement = connection.prepareStatement(query);
 			addStatement.setInt(1, ID);
