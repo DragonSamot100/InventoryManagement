@@ -100,15 +100,43 @@ public class viewController
     void importSheet(ActionEvent event) 
     {
     	TableView<inventoryItem> newTable = currentInvTable;
-
     	FileChooser fileChooser = new FileChooser();
     	Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
     	File selectedFile = fileChooser.showOpenDialog(stage);
     	
+    	ObservableList<inventoryItem> data =  CSVReader.read(selectedFile.getAbsolutePath());
     	String tabname = ("Table" + tableTabContainer.getTabs().size());
     	Tab newTab = new Tab(tabname, newTable);
     	tableTabContainer.getTabs().add(newTab);
+    	
+    	TableColumn<inventoryItem, String> itemNameCol = new TableColumn<inventoryItem, String>("Inventory Item");
+    	itemNameCol.setMinWidth(200);
+    	itemNameCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, String>("item"));
+    	
+    	TableColumn<inventoryItem, Integer> itemNumberCol = new TableColumn<inventoryItem, Integer>("ID");
+    	itemNumberCol.setMinWidth(50);
+    	itemNumberCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("productID"));
+    	
+    	TableColumn<inventoryItem, Integer> itemStockCol = new TableColumn<inventoryItem, Integer>("Current Stock");
+    	itemStockCol.setMinWidth(100);
+    	itemStockCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("quantity"));
+
+    	TableColumn<inventoryItem, String> itemUnitCol = new TableColumn<inventoryItem, String>("Unit");
+    	itemUnitCol.setMinWidth(50);
+    	itemUnitCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, String>("unit"));
+    	
+    	TableColumn<inventoryItem, String> itemOrderUnitCol = new TableColumn<inventoryItem, String>("OrderUnit");
+    	itemOrderUnitCol.setMinWidth(50);
+    	itemOrderUnitCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, String>("orderunit"));
+    	
+    	TableColumn<inventoryItem, Integer> itemVendorCol = new TableColumn<inventoryItem, Integer>("Vendor");
+    	itemVendorCol.setMinWidth(50);
+    	itemVendorCol.setCellValueFactory(new PropertyValueFactory<inventoryItem, Integer>("distributor"));
+    	
+    	newTable.setItems(data);
+    	newTable.getColumns().addAll(itemNumberCol, itemNameCol, itemStockCol, itemUnitCol,itemOrderUnitCol, itemVendorCol);
     	newTab.setClosable(true);
+    	
     }
 
     @FXML
