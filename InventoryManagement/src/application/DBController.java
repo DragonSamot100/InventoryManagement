@@ -48,10 +48,9 @@ public class DBController
 			addStatement.execute();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			printSQLException(e);
+			return false;
 		}
-		return false;
+		
 	}
 	public static boolean addMenuItem(int menuNum, menuItem food) {
 		getConnection();
@@ -63,10 +62,9 @@ public class DBController
 			addStatement.execute();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			printSQLException(e);
+			return false;
 		}
-		return false;
+		
 	}
 	
 	public static boolean updateStock(int productID, int newStock) {
@@ -79,10 +77,9 @@ public class DBController
 			addStatement.execute();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			printSQLException(e);
+			return false;
 		}
-		return false;
+		
 	}
 	public static boolean deleteItem(int productID) {
 		getConnection();
@@ -93,10 +90,9 @@ public class DBController
 			addStatement.execute();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			printSQLException(e);
+			return false;
 		}
-		return false;
+		
 	}
 	public static ObservableList<inventoryItem> getInventory() {
 		ObservableList<inventoryItem> data = null;
@@ -106,13 +102,6 @@ public class DBController
 			String query = "SELECT * FROM inventory";
 			Statement stmt = connection.createStatement();
 			resultSet = stmt.executeQuery(query);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			printSQLException(e);
-		}
-
-		try {
 			data = FXCollections.observableArrayList(dataBaseArrayList(resultSet));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,14 +117,7 @@ public class DBController
 			String query = "SELECT * FROM menuItems";
             Statement stmt = connection.createStatement();
             resultSet = stmt.executeQuery(query);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			printSQLException(e);
-		}
-
-		try {
-			dataMenu = FXCollections.observableArrayList(getMenuItems(resultSet));
+            dataMenu = FXCollections.observableArrayList(getMenuItems(resultSet));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			printSQLException(e);
@@ -186,17 +168,11 @@ public class DBController
 	public static ArrayList<inventoryItem> getInventoryAsArray() {
 		getConnection();
 		ResultSet resultSet = null;
+		ArrayList<inventoryItem> data = new ArrayList();
 		try {
 			String query = "SELECT * FROM inventory";
 			Statement stmt = connection.createStatement();
 			resultSet = stmt.executeQuery(query);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			printSQLException(e);
-		}
-		ArrayList<inventoryItem> data = new ArrayList();
-		try {
 			data = dataBaseArrayList(resultSet);
 		} catch (SQLException e) {
 			e.printStackTrace();
