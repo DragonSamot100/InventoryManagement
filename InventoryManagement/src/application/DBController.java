@@ -169,6 +169,19 @@ public class DBController
 		}
 	}
 	
+	public static boolean deleteMenuItem(int ID) {
+		getConnection();
+		String query = "DELETE from menuItems where menu = "+ID;
+		try {
+			PreparedStatement addStatement = connection.prepareStatement(query);
+			addStatement.setInt(1, ID);
+			addStatement.execute();
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+	
 	private static ArrayList<inventoryItem> dataBaseArrayList(ResultSet resultSet) throws SQLException {
 		ArrayList<inventoryItem> data = new ArrayList<>();
 		while (resultSet.next()) 
