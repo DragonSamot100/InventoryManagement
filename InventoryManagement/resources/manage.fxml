@@ -7,7 +7,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -103,7 +102,7 @@
                   </MenuButton>
                </children>
             </GridPane>
-            <StackPane alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" HBox.hgrow="NEVER">
+            <StackPane alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" HBox.hgrow="NEVER">
                <children>
                   <VBox fx:id="inventoryItemVBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-border-color: brown;" visible="false" StackPane.alignment="TOP_CENTER">
                      <children>
@@ -183,11 +182,11 @@
                   </VBox>
                   <VBox fx:id="menuItemVBox" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-border-color: brown;" visible="false">
                      <children>
-                        <TreeTableView fx:id="treeTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" tableMenuButtonVisible="true">
+                        <TableView fx:id="menuTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" tableMenuButtonVisible="true">
                            <effect>
                               <InnerShadow />
                            </effect>
-                        </TreeTableView>
+                        </TableView>
                      </children>
                      <padding>
                         <Insets right="1.0" />

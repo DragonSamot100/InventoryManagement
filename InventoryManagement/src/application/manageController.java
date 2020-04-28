@@ -21,11 +21,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -73,7 +69,7 @@ public class manageController
 	    private TableView<inventoryItem> mainTable;
 	    
 	    @FXML
-	    private TreeTableView<menuItem> treeTable;
+	    private TableView<menuItem> menuTable;
 
 	    @FXML
 	    private MenuItem item1;
@@ -167,26 +163,21 @@ public class manageController
     @FXML
     void selectMenuItems(ActionEvent event) 
     {
+    	
     	inventoryItemVBox.setVisible(false);
     	menuItemVBox.setVisible(true);
-    	mainTable.getColumns().clear();
-    	mainTable.setContextMenu(null);
+    	menuTable.getColumns().clear();
+    	menuTable.setContextMenu(null);
     	
-    	TreeTableColumn<menuItem, String> menuItemName = new TreeTableColumn<>("Product Type");
-    	TreeTableColumn<menuItem, String> menuItemType = new TreeTableColumn<>("Menu Item");
-
-    	menuItemName.setCellValueFactory(new TreeItemPropertyValueFactory<>("item"));
-    	menuItemType.setCellValueFactory(new TreeItemPropertyValueFactory<>("itemType"));
-    	int i = 0;
-    	while(dataMenu.size()>=i)
-    	{
-    		TreeItem<w> root = new TreeItem<String>("Root Node");
-    		TreeItem food = new TreeItem.(dataMenu.get(0));;
-    		
-    		i++;
-    	}
+    	TableColumn<menuItem, String> menuItemName = new TableColumn<menuItem, String>("Product");
     	
-    	treeTable.getColumns().addAll(menuItemName, menuItemType);
+    	TableColumn<menuItem, Integer> parsCol = new TableColumn<menuItem, Integer>("Item");
+    	
+    	TableColumn<menuItem, String> ingredients = new TableColumn<menuItem, String>("Ingredients");
+    	
+ 
+	
+    	menuTable.getColumns().addAll(menuItemName, parsCol, ingredients);
 
     }
 
