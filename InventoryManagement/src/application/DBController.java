@@ -234,4 +234,25 @@ public class DBController
 		}
 		return data;
 	}
+	
+	public static inventoryItem getItem(String name) {
+		getConnection();
+		inventoryItem item = null;
+		ResultSet resultSet = null;
+		try {
+			String query = "SELECT * FROM inventory where item = ?";
+			PreparedStatement stmt = connection.prepareStatement(query);
+			stmt.setString(1, name);
+			resultSet = stmt.executeQuery(query);
+			if(resultSet.next()) {
+				item = new inventoryItem(resultSet.getString("item"), resultSet.getInt("productID"),
+						resultSet.getInt("quantity"), resultSet.getString("distributor"), 
+						resultSet.getString("unit"), resultSet.getString("orderunit"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			printSQLException(e);
+		}
+		return item;
+	}
 }
