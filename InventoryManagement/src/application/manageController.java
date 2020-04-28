@@ -21,7 +21,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -67,6 +71,9 @@ public class manageController
 
 	    @FXML
 	    private TableView<inventoryItem> mainTable;
+	    
+	    @FXML
+	    private TreeTableView<menuItem> treeTable;
 
 	    @FXML
 	    private MenuItem item1;
@@ -164,20 +171,29 @@ public class manageController
     	mainTable.getColumns().clear();
     	mainTable.setContextMenu(null);
     	
-    	TableColumn menuItemID = new TableColumn("ID");
-        menuItemID.setCellValueFactory(new PropertyValueFactory<>("name"));
+    	TreeTableColumn<menuItem, String> treeTableColumn1 = new TreeTableColumn<>("Product Type");
+    	TreeTableColumn<menuItem, String> treeTableColumn2 = new TreeTableColumn<>("Menu Item");
+
+    	treeTableColumn1.setCellValueFactory(new TreeItemPropertyValueFactory<>("brand"));
+    	treeTableColumn2.setCellValueFactory(new TreeItemPropertyValueFactory<>("model"));
+
+    	treeTable.getColumns().add(treeTableColumn1);
+    	treeTable.getColumns().add(treeTableColumn2);
+    	
+    	while
         
     	TableColumn menuItemType = new TableColumn("Product Type");
         menuItemType.setCellValueFactory(new PropertyValueFactory<>("name"));
         
     	TableColumn menuItemName = new TableColumn("Menu Item");
         menuItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
-
+        
+        TableColumn menuItemID = new TableColumn("ID");
+        menuItemID.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
         TableColumn menuPARS = new TableColumn("PARS Value");
         menuPARS.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
-        //mainTable.setItems(dataMenu);
-        mainTable.getColumns().addAll(menuItemID, menuItemName, menuItemType, menuPARS);
+
 
     }
 
