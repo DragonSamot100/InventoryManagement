@@ -18,10 +18,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogEvent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -32,7 +33,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -43,7 +46,6 @@ public class manageController
 	Stage manageStage = new Stage();
 	ObservableList<inventoryItem> data = DBController.getInventory();
 	ObservableList<menuItem> dataMenu = DBController.getMenu();
-	EventHandler<DialogEvent> DIALOG_CLOSE_REQUEST;
 	
 	int currentItemID;
 	
@@ -109,12 +111,6 @@ public class manageController
 	    private TextField stationField;
 	    @FXML
 	    private TextField orderUnitField;
-
-	    @FXML
-	    private TextField menuNameField;
-	    @FXML
-	    private TextField menuPARSField;
-
 	    
     @FXML
     void addItem(ActionEvent event) 
@@ -131,37 +127,89 @@ public class manageController
     @FXML
     void addMenuItem(ActionEvent event) 
     {	
+    	
     	ArrayList<String> ingredients = new ArrayList<String>();
     	ArrayList<Double> portions = new ArrayList<Double>();
-    	
-    	Dialog<String> dialog = new Dialog<>();
+
+    	Dialog<ButtonType> dialog = new Dialog<>();
     	Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+    	dialog.getDialogPane().setPrefSize(500, 300);
     	dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+    	dialog.getDialogPane().getButtonTypes().add(new ButtonType("Add", ButtonData.OK_DONE));
+    	dialog.getDialogPane().getButtonTypes().add(new ButtonType("Cancel", ButtonData.CANCEL_CLOSE));
     	dialog.setTitle("Inventory List");
     	dialog.setHeaderText(null);
     	dialog.setResizable(false);
-    	dialog.show();
-		dialog.setOnCloseRequest(DIALOG_CLOSE_REQUEST);
     	
     	ListView<String> listView = new ListView<>();
-    	data.forEach(item -> listView.getItems().add(item.itemProperty().getName()));
+    	data.forEach(item -> listView.getItems().add(item.itemProperty().get()));
     	
     	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>(){
-
+    	
 			@Override
 			public ObservableValue<Boolean> call(String item) {
 				BooleanProperty observable = new SimpleBooleanProperty();
                 observable.addListener((obs, wasSelected, isNowSelected) -> {
-                    if (isNowSelected){
+                	
+                    if (isNowSelected)
+                    {	
                         ingredients.add(item);
-                    } else {
+                        System.out.println(ingredients.toString());
+                    } 
+                    else if(wasSelected)
+                    {
+                    	
                         ingredients.remove(item);
+                        System.out.println(ingredients.toString());
+                    }
+                    else
+                    {
+                    	
                     }
                 });
                 return observable;
-			}	
+			}
+			
     	}));
+    	Label pars = new Label("Pars Level:");
+    	Label name = new Label("Recipe:");
+    	TextField nameField = new TextField();
+    	TextField parsField = new TextField("1.25");
     	
+    	GridPane grid = new GridPane();
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setPercentWidth(50);
+        RowConstraints row1 = new RowConstraints();
+        row1.setPercentHeight(25);
+        RowConstraints row2 = new RowConstraints();
+        row2.setPercentHeight(25);
+    	
+    	grid.add(new Label("Select Ingredients"), 0, 0);
+    	grid.add(listView, 0, 1);
+    	grid.add(name, 0, 2);
+
+    	grid.add(pars, 1, 2);
+    
+    	grid.add(parsField, 1, 2);
+ 
+    	grid.add(nameField, 0, 2);
+
+    	
+    	
+    	dialog.getDialogPane().setContent(grid);
+    	
+    	Optional<ButtonType> result = dialog.showAndWait();
+    	if (result.get() == ButtonType.OK)
+    	{
+    		System.out.println("Thank you");
+//    		menuItem food = new menuItem(nameField.getText(), ingredients, portions, Double.parseDouble(parsField.getText()));
+//    		DBController.addMenuItem(food.getID(), food);
+//    		dataMenu.add(food);
+    	} 
+    	else 
+    	{
+    		dialog.close();
+    	}
 //    	list.setEditable(true);
 //    	list.setCellFactory(TextFieldListCell.forListView());
     	
@@ -323,6 +371,7 @@ public class manageController
 //    	    // ... user chose CANCEL or closed the dialog
 //    	}
     }  
+    
     EventHandler<ActionEvent> deleteItem(){
     	return new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {

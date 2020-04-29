@@ -102,7 +102,7 @@
          <tabs>
             <Tab fx:id="currentInventoryTab" closable="false" text="Inventory">
                <content>
-                  <TableView fx:id="currentInvTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="624.0" tableMenuButtonVisible="true">
+                  <TableView fx:id="currentInvTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="698.0" tableMenuButtonVisible="true">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
