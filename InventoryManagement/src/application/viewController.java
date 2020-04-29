@@ -86,11 +86,10 @@ public class viewController
     void exportCurrentTab(ActionEvent event) 
     {
     	//exports currently opened tab 
-    	DirectoryChooser directoryChooser = new DirectoryChooser();
+    	FileChooser fileChooser = new FileChooser();
     	Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-    	File selectedDirectory = directoryChooser.showDialog((stage));
-    	
-    	
+    	File selectedFile = fileChooser.showSaveDialog((stage));
+    	CSVWriter.write(selectedFile);
     }
 
     @FXML
