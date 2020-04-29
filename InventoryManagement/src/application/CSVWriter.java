@@ -13,11 +13,11 @@ public class CSVWriter {
 			ArrayList<inventoryItem> inventory = DBController.getInventoryAsArray();
 			for (inventoryItem item : inventory) {
 				String toAdd = "" + item.productIDProperty().get();
-				toAdd += "," + item.itemProperty().get();
-				toAdd += "," + item.quantityProperty().get();
-				toAdd += "," + item.distributorProperty().get();
-				toAdd += "," + item.unitProperty().get();
-				toAdd += "," + item.orderunitProperty().get();
+				toAdd += ">" + item.itemProperty().get();
+				toAdd += ">" + item.quantityProperty().get();
+				toAdd += ">" + item.distributorProperty().get();
+				toAdd += ">" + item.unitProperty().get();
+				toAdd += ">" + item.orderunitProperty().get();
 				out.println(toAdd);
 			}
 			return true;

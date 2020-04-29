@@ -23,7 +23,7 @@ public class CSVReader {
 			String line;
 			while(in.hasNextLine()) {
 				line = in.nextLine();
-				String[] split = line.split(",");
+				String[] split = line.split(">");
 				inventoryItem item = new inventoryItem(split[1], Integer.parseInt(split[0]), Integer.parseInt(split[2]), split[3], split[4], split[5]);
 				inventory.add(item);
 			}
