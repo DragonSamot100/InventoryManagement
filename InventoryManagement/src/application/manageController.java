@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -30,7 +31,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -43,6 +43,8 @@ public class manageController
 	Stage manageStage = new Stage();
 	ObservableList<inventoryItem> data = DBController.getInventory();
 	ObservableList<menuItem> dataMenu = DBController.getMenu();
+	EventHandler<DialogEvent> DIALOG_CLOSE_REQUEST;
+	
 	int currentItemID;
 	
 		@FXML
@@ -133,12 +135,15 @@ public class manageController
     	ArrayList<Double> portions = new ArrayList<Double>();
     	
     	Dialog<String> dialog = new Dialog<>();
+    	Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
+    	dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
     	dialog.setTitle("Inventory List");
     	dialog.setHeaderText(null);
     	dialog.setResizable(false);
+    	dialog.show();
+		dialog.setOnCloseRequest(DIALOG_CLOSE_REQUEST);
     	
     	ListView<String> listView = new ListView<>();
-
     	data.forEach(item -> listView.getItems().add(item.itemProperty().getName()));
     	
     	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>(){
@@ -156,18 +161,17 @@ public class manageController
                 return observable;
 			}	
     	}));
-    	list.setEditable(true);
-    	list.setCellFactory(TextFieldListCell.forListView());
     	
-    	menuItem item = new menuItem(menuNameField.getText(), ingredients, portions, Double.parseDouble(menuPARSField.getText()));
+//    	list.setEditable(true);
+//    	list.setCellFactory(TextFieldListCell.forListView());
+    	
+//    	menuItem item = new menuItem(menuNameField.getText(), ingredients, portions, Double.parseDouble(menuPARSField.getText()));
+//    	DBController.addMenuItem(item.getID(), item);
     	
     	
-    	DBController.addMenuItem(item.getID(), item);
-    	
-    	
-    	dataMenu.add(item);
-    	menuNameField.clear();
-    	menuPARSField.clear();
+//    	dataMenu.add(item);
+//    	menuNameField.clear();
+//    	menuPARSField.clear();
     }
     @FXML
     void selectInvItems(ActionEvent event) throws SQLException 
@@ -319,8 +323,6 @@ public class manageController
 //    	    // ... user chose CANCEL or closed the dialog
 //    	}
     }  
-
-    
     EventHandler<ActionEvent> deleteItem(){
     	return new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {

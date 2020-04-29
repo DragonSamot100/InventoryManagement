@@ -70,13 +70,12 @@
                               <Insets />
                            </GridPane.margin>
                         </Button>
-                        <Button fx:id="addIngredientsBtn" mnemonicParsing="false" onAction="#openIngredientsDialog" text="Add Ingredients" visible="false" GridPane.rowIndex="5" />
                      </children>
                      <effect>
                         <InnerShadow />
                      </effect>
                   </GridPane>
-                  <MenuButton fx:id="menuSelector" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#menuItemSelected" popupSide="LEFT" prefHeight="50.0" prefWidth="200.0" stylesheets="@application.css" text="&lt;&lt;" GridPane.rowIndex="2">
+                  <MenuButton fx:id="menuSelector" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" popupSide="LEFT" prefHeight="50.0" prefWidth="200.0" stylesheets="@application.css" text="&lt;&lt;" GridPane.rowIndex="2">
                      <items>
                         <MenuItem fx:id="menuItemPARS" mnemonicParsing="false" onAction="#selectMenuItemPARS" text="ManagePARS" />
                         <MenuItem fx:id="menuItemView" mnemonicParsing="false" onAction="#selectMenuItemView" text="ViewInventory" />
