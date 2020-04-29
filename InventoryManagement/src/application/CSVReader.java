@@ -8,10 +8,18 @@ import javafx.collections.ObservableList;
 
 public class CSVReader {
 	
-	public static ObservableList<inventoryItem> read(String filePath){
+	public static String readDate(File filePath) {
+		try (Scanner in = new Scanner(filePath)){
+			return in.nextLine();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public static ObservableList<inventoryItem> read(File filePath){
 		ArrayList<inventoryItem> inventory = new ArrayList();
 		try (Scanner in = new Scanner(filePath)){
-			in.nextLine(); //Something with date here
+			in.nextLine(); //Ignore first line, is is the date line
 			String line;
 			while(in.hasNextLine()) {
 				line = in.nextLine();
