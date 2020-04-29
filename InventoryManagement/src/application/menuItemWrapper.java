@@ -14,16 +14,16 @@ import javafx.collections.ObservableList;
 public class menuItemWrapper {
 	private ObservableList<inventoryItem> itemList;
 	private ObservableList<Double> portionList;
-	private DoubleProperty parProperty;
+	private DoubleProperty pars;
 	private DoubleProperty portion;
 	private StringProperty itemName;
-	private StringProperty nameProperty;
+	private StringProperty name;
 	private IntegerProperty idProperty;
 	
 	public menuItemWrapper(menuItem m) {
-		nameProperty = new SimpleStringProperty(m.getName());
+		name = new SimpleStringProperty(m.getName());
 		idProperty = new SimpleIntegerProperty(m.getID());
-		parProperty = new SimpleDoubleProperty(m.parsValue());
+		pars = new SimpleDoubleProperty(m.parsValue());
 		itemName = new SimpleStringProperty(m.getItemName());
 		portion = new SimpleDoubleProperty(m.getItemPortions());
 		ArrayList<inventoryItem> items = new ArrayList();
@@ -42,15 +42,15 @@ public class menuItemWrapper {
 		return portionList;
 	}
 
-	public DoubleProperty getParProperty() {
-		return parProperty;
+	public DoubleProperty parsProperty() {
+		return pars;
 	}
 
-	public StringProperty getNameProperty() {
-		return nameProperty;
+	public StringProperty nameProperty() {
+		return name;
 	}
 
-	public IntegerProperty getIdProperty() {
+	public IntegerProperty idProperty() {
 		return idProperty;
 	}
 	public StringProperty itemNameProperty() {

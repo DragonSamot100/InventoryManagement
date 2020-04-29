@@ -131,6 +131,8 @@ public class manageController
     	ArrayList<String> ingredients = new ArrayList<String>();
     	ArrayList<Double> portions = new ArrayList<Double>();
 
+    	
+    	
     	Dialog<ButtonType> dialog = new Dialog<>();
     	Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
     	dialog.getDialogPane().setPrefSize(500, 300);
@@ -142,35 +144,31 @@ public class manageController
     	dialog.setResizable(false);
     	
     	ListView<String> listView = new ListView<>();
+    	listView.setPickOnBounds(true);
+//    	data.forEach(item -> loaded.add(item.itemProperty().get()));
+//    	listView.getItems().
     	data.forEach(item -> listView.getItems().add(item.itemProperty().get()));
     	
-    	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>(){
-    	
-			@Override
-			public ObservableValue<Boolean> call(String item) {
-				BooleanProperty observable = new SimpleBooleanProperty();
-                observable.addListener((obs, wasSelected, isNowSelected) -> {
-                	
-                    if (isNowSelected)
-                    {	
-                        ingredients.add(item);
-                        System.out.println(ingredients.toString());
-                    } 
-                    else if(wasSelected)
-                    {
-                    	
-                        ingredients.remove(item);
-                        System.out.println(ingredients.toString());
+    	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+            @Override
+            public ObservableValue<Boolean> call(String item) {
+                BooleanProperty observable = new SimpleBooleanProperty();
+                for (int i = 0; i < ingredients.size(); i++) {
+                    if (item.equals(ingredients.get(i))) {
+                        observable.set(true);
                     }
-                    else
-                    {
-                    	
+                }
+                observable.addListener((obs, notChecked, isChecked) -> {
+                    if (isChecked) {
+                    	ingredients.add(item);
+                    } else {
+                    	ingredients.remove(item);
                     }
                 });
                 return observable;
-			}
-			
-    	}));
+            }
+        }));    	
+    		
     	Label pars = new Label("Pars Level:");
     	Label name = new Label("Recipe:");
     	TextField nameField = new TextField();
@@ -187,24 +185,20 @@ public class manageController
     	grid.add(new Label("Select Ingredients"), 0, 0);
     	grid.add(listView, 0, 1);
     	grid.add(name, 0, 2);
-
     	grid.add(pars, 1, 2);
-    
     	grid.add(parsField, 1, 2);
- 
     	grid.add(nameField, 0, 2);
 
-    	
-    	
     	dialog.getDialogPane().setContent(grid);
     	
     	Optional<ButtonType> result = dialog.showAndWait();
-    	if (result.get() == ButtonType.OK)
+    	 if (result.isPresent() && result.get().getButtonData() == ButtonData.OK_DONE)
     	{
     		System.out.println("Thank you");
-//    		menuItem food = new menuItem(nameField.getText(), ingredients, portions, Double.parseDouble(parsField.getText()));
+    		ingredients.forEach(item -> portions.add(0.0));
+    		menuItem food = new menuItem(nameField.getText(), ingredients, portions, Double.parseDouble(parsField.getText()));
 //    		DBController.addMenuItem(food.getID(), food);
-//    		dataMenu.add(food);
+    		dataMenu.add(food);
     	} 
     	else 
     	{
@@ -278,11 +272,13 @@ public class manageController
     	
     	TableColumn<menuItem, String> menuItemName = new TableColumn<menuItem, String>("Recipe");
     	menuItemName.setMinWidth(200);
-    	menuItemName.setCellValueFactory(new PropertyValueFactory<menuItem, String>("nameProperty"));
+    	menuItemName.setCellValueFactory(new PropertyValueFactory<menuItem, String>("name"));
     	
     	TableColumn<menuItem, Double> parsCol = new TableColumn<menuItem, Double>("PARS Value");
     	parsCol.setMinWidth(50);
-    	parsCol.setCellValueFactory(new PropertyValueFactory<menuItem, Double>("parProperty"));
+    	parsCol.setCellValueFactory(new PropertyValueFactory<menuItem, Double>("pars"));
+    	
+    	
     	
     	TableColumn<menuItem, String> ingredients = new TableColumn<>("Ingredients");
     	
@@ -301,8 +297,7 @@ public class manageController
         actionCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
         Callback<TableColumn<menuItem, String>, TableCell<menuItem, String>> cellFactory
-                = //
-                new Callback<TableColumn<menuItem, String>, TableCell<menuItem, String>>() {
+                = new Callback<TableColumn<menuItem, String>, TableCell<menuItem, String>>() {
             @Override
             public TableCell call(final TableColumn<menuItem, String> param) {
                 final TableCell<menuItem, String> cell = new TableCell<menuItem, String>() {
@@ -314,7 +309,7 @@ public class manageController
                         super.updateItem(item, empty);
                         if (empty) {
                             setGraphic(null);
-                            setText(null);
+                            setText("Expand");
                         } else {
                             btn.setOnAction(event -> {
                             	
@@ -332,7 +327,7 @@ public class manageController
                             	ingredients.getColumns().addAll(ingrdName, ingrdPortion);
                             });
                             setGraphic(btn);
-                            setText("-");
+                            setText("Ingredients");
                         }
                     }
                 };

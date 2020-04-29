@@ -10,16 +10,16 @@ public class menuItem implements Serializable{
 	private int menuID;
 	
 	private String name = null;
-	private String ingrd = null;
-	private double port;
+	private String itemName = null;
+	private double portion;
 	private ArrayList<String> recipeList;
-	private double parsValue;
+	private double pars;
 	private ArrayList<Double> portionList;
 	
-	public menuItem(String item, ArrayList<String> itemList, ArrayList<Double> portions, double pars)
+	public menuItem(String item, ArrayList<String> itemList, ArrayList<Double> portions, double parsValue)
 	{
 		name = item;
-		parsValue = pars;
+		pars = parsValue;
 		recipeList = itemList; 
 		portionList = portions;
 		menuID = DBController.getMenuItemsSize()+1;
@@ -28,15 +28,15 @@ public class menuItem implements Serializable{
 	public menuItem(String item, ArrayList<String> itemList, ArrayList<Double> portions)
 	{
 		name = item;
-		parsValue = 1.25;
+		pars = 1.25;
 		recipeList = itemList;
 		portionList = portions;
 		menuID = DBController.getMenuItemsSize()+1;
 	}
-	public menuItem(String ingredient, double portion)
+	public menuItem(String ingredient, double portionNum)
 	{
-		ingrd = ingredient;
-		port = portion;
+		itemName = ingredient;
+		portion = portionNum;
 		
 	}
 	public String getName() 
@@ -51,12 +51,12 @@ public class menuItem implements Serializable{
 	
 	public double parsValue() 
 	{
-		return parsValue;
+		return pars;
 	}
 	
 	public void setparsValue(double pars) 
 	{
-		parsValue = pars;
+		pars = pars;
 	}
 	
 	public ArrayList<String> getRecipe() 
@@ -68,13 +68,13 @@ public class menuItem implements Serializable{
 		return portionList;
 	}
 	public String getItemName(){
-		return ingrd;
+		return itemName;
 	}
 	public double getItemPortions(){
-		return port;
+		return portion;
 	}
 	public void setItemPortions(double newPort){
-		port = newPort;
+		portion = newPort;
 	}
 	public boolean addMenuIngrd(String ingrd, double portion) 
 	{
