@@ -101,7 +101,7 @@ public class viewController
     	Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
     	File selectedFile = fileChooser.showOpenDialog(stage);
     	
-    	ObservableList<inventoryItem> data =  CSVReader.read(selectedFile.getAbsolutePath());
+    	ObservableList<inventoryItem> data =  CSVReader.read(selectedFile);
     	String tabname = ("Table" + tableTabContainer.getTabs().size());
     	Tab newTab = new Tab(tabname, newTable);
     	tableTabContainer.getTabs().add(newTab);
