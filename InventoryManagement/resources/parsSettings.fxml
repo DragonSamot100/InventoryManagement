@@ -87,7 +87,6 @@
                   <MenuButton fx:id="menuSelector" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#menuItemSelected" popupSide="LEFT" prefHeight="50.0" prefWidth="200.0" stylesheets="@application.css" text="&lt;&lt;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                     <items>
                       <MenuItem fx:id="menuItemManage" mnemonicParsing="false" onAction="#selectMenuItemManage" text="ManageInventory" />
-                      <MenuItem fx:id="MenuItemMenu" mnemonicParsing="false" onAction="#selectMenuItemMenu" text="ManageMenu " />
                         <MenuItem fx:id="menuItemView" mnemonicParsing="false" onAction="#selectMenuItemView" text="ViewInventory" />
                     </items>
                      <effect>

@@ -46,9 +46,6 @@ public class parsController
     private MenuItem menuItemManage;
 
     @FXML
-    private MenuItem MenuItemMenu;
-
-    @FXML
     private MenuItem menuItemPARS;
 
     @FXML
@@ -118,52 +115,6 @@ public class parsController
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/manage.fxml"));
 			root = loader.load();
 			loader.setController("manageController");
-            manageStage.setTitle("Denunzio's Inventory Management Tools");
-            manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-            manageStage.setScene(new Scene(root, 900, 600));
-            manageStage.setResizable(false);
-            manageStage.show();
-            Stage stage = (Stage) vBoxPARSFrame.getScene().getWindow();
-            stage.hide();
-        }
-        catch (IOException e) 
-		{
-            e.printStackTrace();
-		}
-    	
-    }
-
-    @FXML
-    void selectMenuItemMenu(ActionEvent event) 
-    {
-    	//switches to Menu management
-    	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/menuManage.fxml"));
-			root = loader.load();
-			loader.setController("menuController");
-            manageStage.setTitle("Denunzio's Inventory Management Tools");
-            manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-            manageStage.setScene(new Scene(root, 900, 600));
-            manageStage.setResizable(false);
-            manageStage.show();
-            Stage stage = (Stage) vBoxPARSFrame.getScene().getWindow();
-            stage.hide();
-        }
-        catch (IOException e) 
-		{
-            e.printStackTrace();
-		}
-    	
-    }
-
-    @FXML
-    void selectMenuItemPARS(ActionEvent event) 
-    {
-    	//switches to PARS management
-    	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/parsSettings.fxml"));
-			root = loader.load();
-			loader.setController("parsController");
             manageStage.setTitle("Denunzio's Inventory Management Tools");
             manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
             manageStage.setScene(new Scene(root, 900, 600));

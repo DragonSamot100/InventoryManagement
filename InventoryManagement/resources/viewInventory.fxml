@@ -63,24 +63,24 @@
                <children>
                   <ButtonBar prefHeight="50.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                     <buttons>
-                      <Button fx:id="importButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#importSheet" prefHeight="40.0" text="Import" />
-                        <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportCurrentTab" prefHeight="40.0" text="Export" />
+                      <Button fx:id="importButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#importSheet" prefHeight="32.0" text="Import" />
+                        <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportCurrentTab" prefHeight="32.0" text="Export" />
                     </buttons>
                      <GridPane.margin>
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </ButtonBar>
-                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveCurrentInv" prefHeight="40.0" prefWidth="192.0" text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                  <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1">
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveCurrentInv" prefHeight="32.0" prefWidth="192.0" text="Save" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <ToolBar prefHeight="32.0" prefWidth="192.0" GridPane.rowIndex="1">
                     <items>
                       <Button fx:id="selectDateButton" mnemonicParsing="false" onAction="#selectDate" text="Select" />
                         <Label fx:id="dateLabel" text="Open By Date" />
                         <DatePicker fx:id="getDate" onAction="#dateSelected" promptText="Open by Date" />
                     </items>
                   </ToolBar>
-                  <ChoiceBox fx:id="recentBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="192.0" GridPane.rowIndex="2" />
+                  <ChoiceBox fx:id="recentBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" prefWidth="192.0" GridPane.rowIndex="2" />
                   <Label alignment="CENTER" text="Open Recent" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Label alignment="CENTER" prefHeight="31.0" prefWidth="190.0" style="-fx-background-color: white;" text="Inventory Keeping Tool">
+                  <Label alignment="CENTER" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: white;" text="Inventory Keeping Tool">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -90,7 +90,6 @@
             <MenuButton fx:id="menuSelector1" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" popupSide="LEFT" prefHeight="50.0" prefWidth="200.0" stylesheets="@application.css" text="&lt;&lt;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
               <items>
                 <MenuItem fx:id="menuItemManage" mnemonicParsing="false" onAction="#selectMenuItemManage" text="ManageInventory" />
-                <MenuItem fx:id="MenuItemMenu" mnemonicParsing="false" onAction="#selectMenuItemMenu" text="ManageMenu " />
                   <MenuItem fx:id="menuItemPARS" mnemonicParsing="false" onAction="#selectMenuItemPARS" text="ManagePARS" />
               </items>
                <effect>

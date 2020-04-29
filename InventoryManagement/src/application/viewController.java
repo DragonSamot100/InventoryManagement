@@ -62,9 +62,6 @@ public class viewController
     private MenuItem menuItemManage;
 
     @FXML
-    private MenuItem MenuItemMenu;
-
-    @FXML
     private MenuItem menuItemPARS;
     
     @FXML
@@ -162,29 +159,6 @@ public class viewController
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/manage.fxml"));
 			root = loader.load();
 			loader.setController("manageController");
-            manageStage.setTitle("Denunzio's Inventory Management Tools");
-            manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-            manageStage.setScene(new Scene(root, 900, 600));
-            manageStage.setResizable(false);
-            manageStage.show();
-            Stage stage = (Stage) HBoxParent.getScene().getWindow();
-            stage.hide();
-        }
-        catch (IOException e) 
-		{
-            e.printStackTrace();
-		}
-    	
-    }
-
-    @FXML
-    void selectMenuItemMenu(ActionEvent event) 
-    {
-    	//switches to Menu management
-    	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/menuManage.fxml"));
-			root = loader.load();
-			loader.setController("menuController");
             manageStage.setTitle("Denunzio's Inventory Management Tools");
             manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
             manageStage.setScene(new Scene(root, 900, 600));

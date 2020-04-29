@@ -10,6 +10,8 @@ public class menuItem implements Serializable{
 	private int menuID;
 	
 	private String name = null;
+	private String ingrd = null;
+	private double port;
 	private ArrayList<String> recipeList;
 	private double parsValue;
 	private ArrayList<Double> portionList;
@@ -31,7 +33,12 @@ public class menuItem implements Serializable{
 		portionList = portions;
 		menuID = DBController.getMenuItemsSize()+1;
 	}
-	
+	public menuItem(String ingredient, double portion)
+	{
+		ingrd = ingredient;
+		port = portion;
+		
+	}
 	public String getName() 
 	{
 		return name;
@@ -60,7 +67,15 @@ public class menuItem implements Serializable{
 	public ArrayList<Double> getPortions(){
 		return portionList;
 	}
-	
+	public String getItemName(){
+		return ingrd;
+	}
+	public double getItemPortions(){
+		return port;
+	}
+	public void setItemPortions(double newPort){
+		port = newPort;
+	}
 	public boolean addMenuIngrd(String ingrd, double portion) 
 	{
 		recipeList.add(ingrd);

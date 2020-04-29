@@ -2,8 +2,12 @@ package application;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,16 +20,21 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class manageController 
 {
@@ -46,9 +55,6 @@ public class manageController
 		
 	    @FXML
 	    private Button invItems;
-
-	    @FXML
-	    private Button vendorsList;
 
 	    @FXML
 	    private Button menuItemsList;
@@ -85,22 +91,28 @@ public class manageController
 
 	    @FXML
 	    private Button addItemButton;
-
+	    @FXML
+	    private Button addMenuItemButton;
+	    @FXML
+	    private Button addIngredientsBtn;
+	    
 	    @FXML
 	    private TextField vendorField;
-
 	    @FXML
 	    private TextField stockField;
-
 	    @FXML
 	    private TextField unitField;
-
 	    @FXML
 	    private TextField stationField;
-
 	    @FXML
 	    private TextField orderUnitField;
-    
+
+	    @FXML
+	    private TextField menuNameField;
+	    @FXML
+	    private TextField menuPARSField;
+
+	    
     @FXML
     void addItem(ActionEvent event) 
     {	
@@ -114,11 +126,46 @@ public class manageController
     	orderUnitField.clear();
     }
     @FXML
-    void menuItemSelected(ActionEvent event) 
-    {
-    	//supposed to close current window
-    }
+    void addMenuItem(ActionEvent event) 
+    {	
+    	ArrayList<String> ingredients = new ArrayList<String>();
+    	ArrayList<Double> portions = new ArrayList<Double>();
+    	
+    	Dialog<String> dialog = new Dialog<>();
+    	dialog.setTitle("Inventory List");
+    	dialog.setHeaderText(null);
+    	dialog.setResizable(false);
+    	
+    	ListView<String> listView = new ListView<>();
+    	data.forEach(item -> listView.getItems().add(item.itemProperty().getName()));
+    	
+    	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>(){
 
+			@Override
+			public ObservableValue<Boolean> call(String item) {
+				BooleanProperty observable = new SimpleBooleanProperty();
+                observable.addListener((obs, wasSelected, isNowSelected) -> {
+                    if (isNowSelected){
+                        ingredients.add(item);
+                    } else {
+                        ingredients.remove(item);
+                    }
+                });
+                return observable;
+			}	
+    	}));
+    	
+    	
+    	menuItem item = new menuItem(menuNameField.getText(), ingredients, portions, Double.parseDouble(menuPARSField.getText()));
+    	
+    	
+    	DBController.addMenuItem(item.getID(), item);
+    	
+    	
+    	dataMenu.add(item);
+    	menuNameField.clear();
+    	menuPARSField.clear();
+    }
     @FXML
     void selectInvItems(ActionEvent event) throws SQLException 
     {
@@ -163,62 +210,199 @@ public class manageController
     @FXML
     void selectMenuItems(ActionEvent event) 
     {
+    	ContextMenu contextMenu = new ContextMenu();
+    	MenuItem deleteItemMenu = new MenuItem("Delete");
+    	EventHandler<ActionEvent> deleteEvent = deleteMenuItem();
+    	contextMenu.getItems().add(deleteItemMenu);
+    	deleteItemMenu.setOnAction(deleteEvent);
     	
     	inventoryItemVBox.setVisible(false);
     	menuItemVBox.setVisible(true);
     	menuTable.getColumns().clear();
     	menuTable.setContextMenu(null);
     	
-    	TableColumn<menuItem, String> menuItemName = new TableColumn<menuItem, String>("Product");
+    	TableColumn<menuItem, String> menuItemName = new TableColumn<menuItem, String>("Recipe");
+    	menuItemName.setMinWidth(200);
+    	menuItemName.setCellValueFactory(new PropertyValueFactory<menuItem, String>("nameProperty"));
     	
-    	TableColumn<menuItem, Integer> parsCol = new TableColumn<menuItem, Integer>("Item");
+    	TableColumn<menuItem, Double> parsCol = new TableColumn<menuItem, Double>("PARS Value");
+    	parsCol.setMinWidth(50);
+    	parsCol.setCellValueFactory(new PropertyValueFactory<menuItem, Double>("parProperty"));
     	
-    	TableColumn<menuItem, String> ingredients = new TableColumn<menuItem, String>("Ingredients");
+    	TableColumn<menuItem, String> ingredients = new TableColumn<>("Ingredients");
     	
+    	TableColumn<menuItem, String> ingrdName = new TableColumn<>("Name");
+    	ingrdName.setMinWidth(200);
+    	ingrdName.setCellValueFactory(new PropertyValueFactory<menuItem, String>("itemName"));
+    	ingrdName.setSortable(false);
+    	TableColumn<menuItem, Double> ingrdPortion = new TableColumn<>("Portion");
+    	ingrdPortion.setMinWidth(50);
+    	ingrdPortion.setSortable(false);
+    	ingrdPortion.setCellValueFactory(new PropertyValueFactory<menuItem, Double>("portion"));
+    	
+    	TableColumn actionCol = new TableColumn("");
+    	actionCol.setMinWidth(50);
+    	actionCol.setSortable(false);
+        actionCol.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+
+        Callback<TableColumn<menuItem, String>, TableCell<menuItem, String>> cellFactory
+                = //
+                new Callback<TableColumn<menuItem, String>, TableCell<menuItem, String>>() {
+            @Override
+            public TableCell call(final TableColumn<menuItem, String> param) {
+                final TableCell<menuItem, String> cell = new TableCell<menuItem, String>() {
+
+                    final Button btn = new Button("+");
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            btn.setOnAction(event -> {
+                            	
+                            	menuItem ingrd = getTableView().getItems().get(getIndex());
+                            	int i = 0;
+                            	while(i<=ingrd.getRecipe().size())
+                            	{
+                            		String name = ingrd.getRecipe().get(i);
+                            		double portion = ingrd.getPortions().get(i);
+                            		menuItem newIngrd = new menuItem(name, portion);
+                            		dataMenu.add(getIndex(), newIngrd);
+                            		
+                            	}
+                            	
+                            	ingredients.getColumns().addAll(ingrdName, ingrdPortion);
+                            });
+                            setGraphic(btn);
+                            setText("-");
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+        actionCol.setCellFactory(cellFactory);
+    	ingredients.getColumns().addAll(actionCol);
  
 	
-    	menuTable.getColumns().addAll(menuItemName, parsCol, ingredients);
-
-    }
-
-    @FXML
-    void selectVendors(ActionEvent event) 
-    {
-    	mainTable.getColumns().clear();
-    	mainTable.setContextMenu(null);
-    	TableColumn vendorName = new TableColumn("Vendor Name");
-        vendorName.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        TableColumn idNum = new TableColumn("ID");
-        idNum.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-        mainTable.getColumns().addAll(idNum, vendorName);
+    	menuTable.getColumns().addAll(menuItemName, ingredients,  parsCol);
+    	menuTable.setItems(dataMenu);
 
     }
     
     @FXML
-    void selectMenuItemMenu(ActionEvent event) 
+    void modifyItem(ActionEvent event) 
     {
-    	//switches to Menu management
-    	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/menuManage.fxml"));
-			root = loader.load();
-			loader.setController("menuController");
-            manageStage.setTitle("Denunzio's Inventory Management Tools");
-            manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-            manageStage.setScene(new Scene(root, 900, 600));
-            manageStage.setResizable(false);
-            manageStage.show();
-            Stage stage = (Stage) vBoxManageFrame.getScene().getWindow();
-            stage.hide();
-        }
-        catch (IOException e) 
-		{
-            e.printStackTrace();
-		}
-    	
-    }
+//    	Alert alert = new Alert(AlertType.CONFIRMATION);
+//    	alert.setTitle("Inventory Item Deletion");
+//    	alert.setHeaderText("Do you wish to delete this item?");
+//    	alert.setContentText("INSERTITEMNAMEHEREWHENEVERIGETITTOWORK");
+//
+//    	ButtonType buttonTypeOne = new ButtonType("One");
+//    	ButtonType buttonTypeTwo = new ButtonType("Two");
+//    	ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+//
+//    	alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+//
+//    	Optional<ButtonType> result = alert.showAndWait();
+//    	if (result.get() == buttonTypeOne){
+//    	    // ... user chose "One"
+//    	} else if (result.get() == buttonTypeTwo) {
+//    	    // ... user chose "Two"
+//    	} else {
+//    	    // ... user chose CANCEL or closed the dialog
+//    	}
+    }  
 
+    
+    EventHandler<ActionEvent> deleteItem(){
+    	return new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				inventoryItem current = mainTable.getSelectionModel().getSelectedItem();
+				currentItemID = current.productIDProperty().get();
+		    	Alert alert = new Alert(AlertType.CONFIRMATION, "Do you wish to remove this item from the database?");
+		    	Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();	
+		    	alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+		    	alert.setTitle("Item Deletion Confirmation");
+		    	alert.getDialogPane().setHeader(null);
+		    	alert.setHeaderText(null);
+		    	alert.setGraphic(null);
+		    
+		    	
+		    	Optional<ButtonType> result = alert.showAndWait();
+		    	if (result.get() == ButtonType.OK)
+		    	{
+		    		DBController.deleteItem(currentItemID);
+		    		data.remove(current);
+		    	} 
+		    	else 
+		    	{
+		    		alert.close();
+		    	}
+		}
+	};
+	
+    }
+	EventHandler<ActionEvent> deleteMenuItem(){
+    	return new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				menuItem current = menuTable.getSelectionModel().getSelectedItem();
+				
+				if ((Integer.toString(current.getID())).isEmpty())
+				{
+					currentItemID = current.getID();
+					Alert alert = new Alert(AlertType.CONFIRMATION, "Do you wish to remove this menu item from the database?");
+			    	Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();	
+			    	alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+			    	alert.setTitle("Menu Deletion Confirmation");
+			    	alert.getDialogPane().setHeader(null);
+			    	alert.setHeaderText(null);
+			    	alert.setGraphic(null);
+			    
+			    	
+			    	Optional<ButtonType> result = alert.showAndWait();
+			    	if (result.get() == ButtonType.OK)
+			    	{
+			    		DBController.deleteMenuItem(currentItemID);
+			    		int i = current.getPortions().size();
+			    		int j = current.getID();
+			    		dataMenu.remove(j, i+j);
+			    	} 
+			    	else 
+			    	{
+			    		alert.close();
+			    	}
+				}
+				else
+				{
+					Alert alert = new Alert(AlertType.CONFIRMATION, "Do you wish to remove this menu item from the database?");
+			    	Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();	
+			    	alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+			    	alert.setTitle("Menu Deletion Confirmation");
+			    	alert.getDialogPane().setHeader(null);
+			    	alert.setHeaderText(null);
+			    	alert.setGraphic(null);
+			    
+			    	
+			    	Optional<ButtonType> result = alert.showAndWait();
+			    	if (result.get() == ButtonType.OK)
+			    	{
+			    		dataMenu.remove(current);
+			    	} 
+			    	else 
+			    	{
+			    		alert.close();
+			    	}
+				}
+		    	
+		}
+	};	
+
+    }  
+		
     @FXML
     void selectMenuItemPARS(ActionEvent event) 
     {
@@ -262,78 +446,6 @@ public class manageController
             e.printStackTrace();
 		}
     }  
-    @FXML
-    void getRowClicked(ActionEvent event) 
-    {
-    	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewInventory.fxml"));
-			root = loader.load();
-			loader.setController("viewController");
-            manageStage.setTitle("Denunzio's Inventory Management Tools");
-            manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-            manageStage.setScene(new Scene(root, 900, 600));
-            manageStage.setResizable(false);
-            manageStage.show();
-            Stage stage = (Stage) vBoxManageFrame.getScene().getWindow();
-            stage.hide();
-        }
-        catch (IOException e) 
-		{
-            e.printStackTrace();
-		}
-    }  
-
-    EventHandler<ActionEvent> deleteItem(){
-    	return new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				inventoryItem current = mainTable.getSelectionModel().getSelectedItem();
-				currentItemID = current.productIDProperty().get();
-		    	Alert alert = new Alert(AlertType.CONFIRMATION, "Do you wish to remove this item from the database?");
-		    	Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();	
-		    	alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-		    	alert.setTitle("Item Deletion Confirmation");
-		    	alert.getDialogPane().setHeader(null);
-		    	alert.setHeaderText(null);
-		    	alert.setGraphic(null);
-		    
-		    	
-		    	Optional<ButtonType> result = alert.showAndWait();
-		    	if (result.get() == ButtonType.OK)
-		    	{
-		    		DBController.deleteItem(currentItemID);
-		    		data.remove(current);
-		    	} 
-		    	else 
-		    	{
-		    		alert.close();
-		    	}
-		}
-	};
-		
-
-    }  
-    @FXML
-    void modifyItem(ActionEvent event) 
-    {
-//    	Alert alert = new Alert(AlertType.CONFIRMATION);
-//    	alert.setTitle("Inventory Item Deletion");
-//    	alert.setHeaderText("Do you wish to delete this item?");
-//    	alert.setContentText("INSERTITEMNAMEHEREWHENEVERIGETITTOWORK");
-//
-//    	ButtonType buttonTypeOne = new ButtonType("One");
-//    	ButtonType buttonTypeTwo = new ButtonType("Two");
-//    	ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-//
-//    	alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
-//
-//    	Optional<ButtonType> result = alert.showAndWait();
-//    	if (result.get() == buttonTypeOne){
-//    	    // ... user chose "One"
-//    	} else if (result.get() == buttonTypeTwo) {
-//    	    // ... user chose "Two"
-//    	} else {
-//    	    // ... user chose CANCEL or closed the dialog
-//    	}
-    }  
+    
 
 }
