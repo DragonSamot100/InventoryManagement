@@ -18,6 +18,7 @@ public class CSVWriter {
 				toAdd += "," + item.distributorProperty().get();
 				toAdd += "," + item.unitProperty().get();
 				toAdd += "," + item.orderunitProperty().get();
+				out.println(toAdd);
 			}
 			return true;
 		} catch (Exception e) {
