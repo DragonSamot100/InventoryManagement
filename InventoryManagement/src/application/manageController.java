@@ -30,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -137,6 +138,7 @@ public class manageController
     	dialog.setResizable(false);
     	
     	ListView<String> listView = new ListView<>();
+
     	data.forEach(item -> listView.getItems().add(item.itemProperty().getName()));
     	
     	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>(){
@@ -154,7 +156,8 @@ public class manageController
                 return observable;
 			}	
     	}));
-    	
+    	list.setEditable(true);
+    	list.setCellFactory(TextFieldListCell.forListView());
     	
     	menuItem item = new menuItem(menuNameField.getText(), ingredients, portions, Double.parseDouble(menuPARSField.getText()));
     	
