@@ -109,27 +109,6 @@ public class mainController
 	    }
 
 	@FXML
-	void handleMenubutton(ActionEvent event) 
-	{
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/menuManage.fxml"));
-			root = loader.load();
-			loader.setController("menuController");
-            manageStage.setTitle("Denunzio's Inventory Management Tools");
-            manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-            manageStage.setScene(new Scene(root, 900, 600));
-            manageStage.setResizable(false);
-            manageStage.show();
-            ((Node)(event.getSource())).getScene().getWindow().hide();
-        }
-        catch (IOException e) 
-		{
-            e.printStackTrace();
-		}
-
-	}
-
-	@FXML
 	void handlePARSbutton(ActionEvent event) 
 	{
 		try {

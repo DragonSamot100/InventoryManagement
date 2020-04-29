@@ -26,8 +26,7 @@
                       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" />
                       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="32.0" vgrow="NEVER" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="0.0" prefHeight="32.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="-Infinity" minHeight="50.0" prefHeight="50.0" />
-            <RowConstraints maxHeight="-Infinity" minHeight="50.0" prefHeight="50.0" />
+            <RowConstraints maxHeight="-Infinity" minHeight="100.0" prefHeight="100.0" />
                     </rowConstraints>
                      <children>
                         <ImageView fitHeight="198.0" fitWidth="198.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
@@ -40,9 +39,8 @@
                         </ImageView>
                         <Button fx:id="selectViewInv" mnemonicParsing="false" onAction="#handleViewbutton" prefWidth="128.0" text="View Inventory" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <Button fx:id="selectManageInv" mnemonicParsing="false" onAction="#handleManagebutton" prefWidth="128.0" text="Manage Inventory" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Button fx:id="selectManageMenu" alignment="CENTER" layoutX="63.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleMenubutton" prefWidth="128.0" text="Manage Menu" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                        <Button mnemonicParsing="false" onAction="#handlePARSbutton" prefWidth="96.0" text="PARS" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="5" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-            <Button fx:id="editLogin" disable="true" maxWidth="69.0" minWidth="69.0" mnemonicParsing="false" onAction="#updateCredentials" prefWidth="69.0" text="Edit Login" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#handlePARSbutton" prefWidth="96.0" text="PARS" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+            <Button fx:id="editLogin" disable="true" maxWidth="69.0" minWidth="69.0" mnemonicParsing="false" onAction="#updateCredentials" prefWidth="69.0" text="Edit Login" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                      </children>
                      <VBox.margin>
                         <Insets />
