@@ -24,7 +24,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
@@ -95,7 +94,7 @@ public class viewController
     @FXML
     void importSheet(ActionEvent event) 
     {
-    	TableView<inventoryItem> newTable = currentInvTable;
+    	TableView<inventoryItem> newTable = new TableView<inventoryItem>();
     	FileChooser fileChooser = new FileChooser();
     	Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
     	File selectedFile = fileChooser.showOpenDialog(stage);
