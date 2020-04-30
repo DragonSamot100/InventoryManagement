@@ -303,31 +303,43 @@ public class manageController
                 final TableCell<menuItem, String> cell = new TableCell<menuItem, String>() {
 
                     final Button btn = new Button("+");
-
+                    final Button btnClose = new Button("-");
                     @Override
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty) {
+                        if (empty || (item == null&&dataMenu.isEmpty()!=false)) {
                             setGraphic(null);
-                            setText("Expand");
+                            setText(null);
                         } else {
-                            btn.setOnAction(event -> {
+                        	
+                        		btn.setOnAction(event -> {
+                                	
+                                	menuItem ingrd = getTableView().getItems().get(getIndex());
+                                	int i = 0;
+                                	while(i<ingrd.getRecipe().size())
+                                	{
+                                		String name = ingrd.getRecipe().get(i);
+                                		double portion = ingrd.getPortions().get(i);
+                                		menuItem newIngrd = new menuItem(name, portion);
+                                		dataMenu.add(getIndex()+i+1, newIngrd);
+                                		i++;
+                                	}
+                                	
+                                	
+                                	ingredients.getColumns().addAll(ingrdName, ingrdPortion);
+                                	setGraphic(btnClose);
+                        	}
+                        			
+                            );
+
+                        		setGraphic(btn);
+                                setText(null);
+
+                            
+                            
+                            
+                            
                             	
-                            	menuItem ingrd = getTableView().getItems().get(getIndex());
-                            	int i = 0;
-                            	while(i<=ingrd.getRecipe().size())
-                            	{
-                            		String name = ingrd.getRecipe().get(i);
-                            		double portion = ingrd.getPortions().get(i);
-                            		menuItem newIngrd = new menuItem(name, portion);
-                            		dataMenu.add(getIndex(), newIngrd);
-                            		
-                            	}
-                            	
-                            	ingredients.getColumns().addAll(ingrdName, ingrdPortion);
-                            });
-                            setGraphic(btn);
-                            setText("Ingredients");
                         }
                     }
                 };
