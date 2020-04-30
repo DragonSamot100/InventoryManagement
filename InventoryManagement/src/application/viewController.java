@@ -89,6 +89,7 @@ public class viewController
     	//exports currently opened tab 
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setInitialDirectory(new File("saves"));
+    	fileChooser.setInitialFileName(CSVWriter.writeDate());
     	FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Plain text", "*.txt");
     	fileChooser.getExtensionFilters().add(filter);
     	fileChooser.setSelectedExtensionFilter(filter);
