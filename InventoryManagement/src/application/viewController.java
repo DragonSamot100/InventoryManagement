@@ -41,18 +41,6 @@ public class viewController
     
     @FXML
     private Button exportButton;
-
-    @FXML
-    private Button saveButton;
-
-    @FXML
-    private Button selectDateButton;
-
-    @FXML
-    private DatePicker getDate;
-
-    @FXML
-    private ChoiceBox<?> recentBox;
     
     @FXML
     private MenuButton menuSelector1;
@@ -64,22 +52,10 @@ public class viewController
     private MenuItem menuItemPARS;
     
     @FXML
-    private Label dateLabel;
-    
-    @FXML
     private TabPane tableTabContainer;
     
     @FXML
     public TableView<inventoryItem> currentInvTable;
-
-    
-    @FXML
-    void dateSelected(ActionEvent event) 
-    {
-    	//gets selected date and check if it exists as a saved inventory
-    	//selectDate(event);
-    	
-    }
 
     @FXML
     void exportCurrentTab(ActionEvent event) 
@@ -137,20 +113,6 @@ public class viewController
     	newTable.setItems(data);
     	newTable.getColumns().addAll(itemNumberCol, itemNameCol, itemStockCol, itemUnitCol,itemOrderUnitCol, itemVendorCol);
     	newTab.setClosable(true);
-    	
-    }
-
-    @FXML
-    void saveCurrentInv(ActionEvent event) 
-    {
-    	//this is a database 
-    }
-
-    @FXML
-    void selectDate(ActionEvent event) 
-    {
-    	//gets selected date 
-    	getDate.getDayCellFactory();
     	
     }
     
