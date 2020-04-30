@@ -39,8 +39,7 @@
                         </ImageView>
                         <Button fx:id="selectViewInv" mnemonicParsing="false" onAction="#handleViewbutton" prefWidth="128.0" text="View Inventory" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                         <Button fx:id="selectManageInv" mnemonicParsing="false" onAction="#handleManagebutton" prefWidth="128.0" text="Manage Inventory" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-                        <Button mnemonicParsing="false" onAction="#handlePARSbutton" prefWidth="96.0" text="PARS" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-            <Button fx:id="editLogin" disable="true" maxWidth="69.0" minWidth="69.0" mnemonicParsing="false" onAction="#updateCredentials" prefWidth="69.0" text="Edit Login" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <Button fx:id="editLogin" disable="true" maxWidth="69.0" minWidth="69.0" mnemonicParsing="false" onAction="#updateCredentials" prefWidth="69.0" text="Edit Login" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                      </children>
                      <VBox.margin>
                         <Insets />

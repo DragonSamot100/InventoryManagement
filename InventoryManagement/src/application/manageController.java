@@ -70,12 +70,6 @@ public class manageController
 	    private MenuButton menuSelector;
 
 	    @FXML
-	    private MenuItem MenuItemMenu;
-
-	    @FXML
-	    private MenuItem menuItemPARS;
-
-	    @FXML
 	    private MenuItem menuItemView;
 
 	    @FXML
@@ -98,6 +92,8 @@ public class manageController
 
 	    @FXML
 	    private Button addItemButton;
+	    @FXML
+	    private Button modifyItemButton;
 	    @FXML
 	    private Button addMenuItemButton;
 	    @FXML
@@ -204,9 +200,13 @@ public class manageController
     {
     	ContextMenu contextMenu = new ContextMenu();
     	MenuItem deleteItemMenu = new MenuItem("Delete");
+    	MenuItem modifyMenu = new MenuItem("Modify");
     	EventHandler<ActionEvent> deleteEvent = deleteItem();
+    	EventHandler<ActionEvent> modify = modify();
     	contextMenu.getItems().add(deleteItemMenu);
+    	contextMenu.getItems().add(modifyMenu);
     	deleteItemMenu.setOnAction(deleteEvent);
+    	modifyMenu.setOnAction(modify);
     	
     	menuItemVBox.setVisible(false);
     	inventoryItemVBox.setVisible(true);
@@ -354,27 +354,47 @@ public class manageController
     @FXML
     void modifyItem(ActionEvent event) 
     {
-//    	Alert alert = new Alert(AlertType.CONFIRMATION);
-//    	alert.setTitle("Inventory Item Deletion");
-//    	alert.setHeaderText("Do you wish to delete this item?");
-//    	alert.setContentText("INSERTITEMNAMEHEREWHENEVERIGETITTOWORK");
-//
-//    	ButtonType buttonTypeOne = new ButtonType("One");
-//    	ButtonType buttonTypeTwo = new ButtonType("Two");
-//    	ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-//
-//    	alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
-//
-//    	Optional<ButtonType> result = alert.showAndWait();
-//    	if (result.get() == buttonTypeOne){
-//    	    // ... user chose "One"
-//    	} else if (result.get() == buttonTypeTwo) {
-//    	    // ... user chose "Two"
-//    	} else {
-//    	    // ... user chose CANCEL or closed the dialog
-//    	}
-    }  
+    	
+    	inventoryItem current = mainTable.getSelectionModel().getSelectedItem();
+		currentItemID = current.productIDProperty().get();
+    	Alert alert = new Alert(AlertType.CONFIRMATION, "Do you wish to modify this item?");
+    	Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();	
+    	alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
+    	alert.setTitle("Item Modification Confirmation");
+    	alert.getDialogPane().setHeader(null);
+    	alert.setHeaderText(null);
+    	alert.setGraphic(null);
     
+    	
+    	Optional<ButtonType> result = alert.showAndWait();
+    	if (result.get() == ButtonType.OK)
+    	{
+    		current.itemProperty().set(nameField.getText());
+    		current.unitProperty().set(unitField.getText());
+    		current.orderunitProperty().set(orderUnitField.getText());
+    		current.distributorProperty().set(vendorField.getText());
+    		current.quantityProperty().set(Integer.parseInt(stockField.getText()));
+    		DBController.modifyInventory(nameField.getText(), unitField.getText(), orderUnitField.getText(), vendorField.getText(), currentItemID, Integer.parseInt(stockField.getText()));
+    		
+    	} 
+    	else 
+    	{
+    		alert.close();
+    	}
+    }  
+    EventHandler<ActionEvent> modify(){
+    	return new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				
+				inventoryItem current = mainTable.getSelectionModel().getSelectedItem();
+		    	nameField.setText(current.itemProperty().get());
+		    	stockField.setText(""+current.quantityProperty().get());;
+		    	vendorField.setText(current.distributorProperty().get());
+		    	unitField.setText(current.unitProperty().get());
+		    	orderUnitField.setText(current.orderunitProperty().get());
+		}
+	};
+    }
     EventHandler<ActionEvent> deleteItem(){
     	return new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -461,28 +481,6 @@ public class manageController
 
     }  
 		
-    @FXML
-    void selectMenuItemPARS(ActionEvent event) 
-    {
-    	//switches to PARS management
-    	try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/parsSettings.fxml"));
-			root = loader.load();
-			loader.setController("parsController");
-            manageStage.setTitle("Denunzio's Inventory Management Tools");
-            manageStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
-            manageStage.setScene(new Scene(root, 900, 600));
-            manageStage.setResizable(false);
-            manageStage.show();
-            Stage stage = (Stage) vBoxManageFrame.getScene().getWindow();
-            stage.hide();
-        }
-        catch (IOException e) 
-		{
-            e.printStackTrace();
-		}
-    	
-    }
     @FXML
     void selectMenuItemView(ActionEvent event) 
     {

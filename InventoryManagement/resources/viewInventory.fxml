@@ -69,7 +69,6 @@
             <MenuButton fx:id="menuSelector1" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" popupSide="LEFT" prefHeight="50.0" prefWidth="200.0" stylesheets="@application.css" text="&lt;&lt;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
               <items>
                 <MenuItem fx:id="menuItemManage" mnemonicParsing="false" onAction="#selectMenuItemManage" text="ManageInventory" />
-                  <MenuItem fx:id="menuItemPARS" mnemonicParsing="false" onAction="#selectMenuItemPARS" text="ManagePARS" />
               </items>
                <effect>
                   <DropShadow />

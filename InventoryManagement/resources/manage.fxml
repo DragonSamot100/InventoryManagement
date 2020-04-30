@@ -77,7 +77,6 @@
                   </GridPane>
                   <MenuButton fx:id="menuSelector" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" popupSide="LEFT" prefHeight="50.0" prefWidth="200.0" stylesheets="@application.css" text="&lt;&lt;" GridPane.rowIndex="2">
                      <items>
-                        <MenuItem fx:id="menuItemPARS" mnemonicParsing="false" onAction="#selectMenuItemPARS" text="ManagePARS" />
                         <MenuItem fx:id="menuItemView" mnemonicParsing="false" onAction="#selectMenuItemView" text="ViewInventory" />
                      </items>
                      <effect>
@@ -139,20 +138,19 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="25.0" prefWidth="100.0" text="Order Unit" textAlignment="JUSTIFY" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="25.0" prefWidth="71.0" text="Station" textAlignment="JUSTIFY" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                              <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="25.0" prefWidth="100.0" text="Order Unit" textAlignment="JUSTIFY" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="unitField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <TextField fx:id="stationField" editable="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" promptText="DoesNothing" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                              <TextField fx:id="orderUnitField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                              <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItem" prefHeight="25.0" prefWidth="100.0" text="Add New Item" wrapText="true" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <TextField fx:id="orderUnitField" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItem" prefHeight="20.0" prefWidth="128.0" text="Add New Item" wrapText="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                 <GridPane.margin>
+                                    <Insets right="21.0" />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button fx:id="modifyItemButton" mnemonicParsing="false" onAction="#modifyItem" prefHeight="25.0" prefWidth="128.0" text="Modify Item" wrapText="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <GridPane.margin>
                                     <Insets right="21.0" />
                                  </GridPane.margin>
