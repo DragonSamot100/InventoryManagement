@@ -139,24 +139,24 @@ public class manageController
     	dialog.setHeaderText(null);
     	dialog.setResizable(false);
     	
-    	ListView<inventoryItem> listView = new ListView<>();
+    	ListView<String> listView = new ListView<>();
     	listView.setPickOnBounds(true);
-    	data.forEach(item -> listView.getItems().add(item));
+    	data.forEach(item -> listView.getItems().add(item.itemProperty().get()));
     	
-    	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<inventoryItem, ObservableValue<Boolean>>() {
+    	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
             @Override
-            public ObservableValue<Boolean> call(inventoryItem item) {
+            public ObservableValue<Boolean> call(String item) {
                 BooleanProperty observable = new SimpleBooleanProperty();
                 for (int i = 0; i < ingredients.size(); i++) {
-                    if (item.itemProperty().get().equals(ingredients.get(i))) {
+                    if (item.equals(ingredients.get(i))) {
                         observable.set(true);
                     }
                 }
                 observable.addListener((obs, notChecked, isChecked) -> {
                     if (isChecked) {
-                    	ingredients.add(item.itemProperty().get());
+                    	ingredients.add(item);
                     } else {
-                    	ingredients.remove(item.itemProperty().get());
+                    	ingredients.remove(item);
                     }
                 });
                 return observable;
@@ -429,7 +429,7 @@ public class manageController
 				menuItem current = menuTable.getSelectionModel().getSelectedItem();
 				currentItemID = current.getID();
 
-				if ((Integer.toString(current.getID())).isEmpty()==false)
+				if ((Integer.toString(current.getID()))!=null)
 				{
 					Alert alert = new Alert(AlertType.CONFIRMATION, "Do you wish to remove this menu item from the database?");
 			    	Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();	
