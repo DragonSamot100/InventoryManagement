@@ -64,8 +64,8 @@
                            </effect>
                         </Label>
                         <Button fx:id="invItems" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#selectInvItems" prefHeight="25.0" prefWidth="150.0" text="Inventory Items" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <Button fx:id="menuItemsList" alignment="CENTER" contentDisplay="CENTER" layoutX="31.0" layoutY="101.0" maxHeight="-Infinity" mnemonicParsing="false" onAction="#selectMenuItems" prefHeight="25.0" prefWidth="150.0" text="Menu Items" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                        <Button fx:id="addMenuItemButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addMenuItem" prefWidth="100.0" text="Add Menu Item" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                        <Button fx:id="menuItemsList" alignment="CENTER" contentDisplay="CENTER" layoutX="31.0" layoutY="101.0" maxHeight="-Infinity" mnemonicParsing="false" onAction="#selectMenuItems" prefHeight="25.0" prefWidth="150.0" text="Menu Items" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Button fx:id="addMenuItemButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addMenuItem" prefWidth="100.0" text="Add Menu Item" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>

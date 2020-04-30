@@ -30,6 +30,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -46,6 +47,7 @@ public class manageController
 	Stage manageStage = new Stage();
 	ObservableList<inventoryItem> data = DBController.getInventory();
 	ObservableList<menuItem> dataMenu = DBController.getMenu();
+	ObservableList<menuItem> loadedData = DBController.getMenu();
 	
 	int currentItemID;
 	
@@ -131,8 +133,6 @@ public class manageController
     	ArrayList<String> ingredients = new ArrayList<String>();
     	ArrayList<Double> portions = new ArrayList<Double>();
 
-    	
-    	
     	Dialog<ButtonType> dialog = new Dialog<>();
     	Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
     	dialog.getDialogPane().setPrefSize(500, 300);
@@ -143,40 +143,36 @@ public class manageController
     	dialog.setHeaderText(null);
     	dialog.setResizable(false);
     	
-    	ListView<String> listView = new ListView<>();
+    	ListView<inventoryItem> listView = new ListView<>();
     	listView.setPickOnBounds(true);
-//    	data.forEach(item -> loaded.add(item.itemProperty().get()));
-//    	listView.getItems().
-    	data.forEach(item -> listView.getItems().add(item.itemProperty().get()));
+    	data.forEach(item -> listView.getItems().add(item));
     	
-    	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+    	listView.setCellFactory(CheckBoxListCell.forListView(new Callback<inventoryItem, ObservableValue<Boolean>>() {
             @Override
-            public ObservableValue<Boolean> call(String item) {
+            public ObservableValue<Boolean> call(inventoryItem item) {
                 BooleanProperty observable = new SimpleBooleanProperty();
                 for (int i = 0; i < ingredients.size(); i++) {
-                    if (item.equals(ingredients.get(i))) {
+                    if (item.itemProperty().get().equals(ingredients.get(i))) {
                         observable.set(true);
                     }
                 }
                 observable.addListener((obs, notChecked, isChecked) -> {
                     if (isChecked) {
-                    	ingredients.add(item);
+                    	ingredients.add(item.itemProperty().get());
                     } else {
-                    	ingredients.remove(item);
+                    	ingredients.remove(item.itemProperty().get());
                     }
                 });
                 return observable;
             }
         }));    	
     		
-    	Label pars = new Label("Pars Level:");
     	Label name = new Label("Recipe:");
     	TextField nameField = new TextField();
-    	TextField parsField = new TextField("1.25");
     	
     	GridPane grid = new GridPane();
         ColumnConstraints column1 = new ColumnConstraints();
-        column1.setPercentWidth(50);
+        column1.setPercentWidth(100);
         RowConstraints row1 = new RowConstraints();
         row1.setPercentHeight(25);
         RowConstraints row2 = new RowConstraints();
@@ -185,8 +181,6 @@ public class manageController
     	grid.add(new Label("Select Ingredients"), 0, 0);
     	grid.add(listView, 0, 1);
     	grid.add(name, 0, 2);
-    	grid.add(pars, 1, 2);
-    	grid.add(parsField, 1, 2);
     	grid.add(nameField, 0, 2);
 
     	dialog.getDialogPane().setContent(grid);
@@ -196,24 +190,14 @@ public class manageController
     	{
     		System.out.println("Thank you");
     		ingredients.forEach(item -> portions.add(0.0));
-    		menuItem food = new menuItem(nameField.getText(), ingredients, portions, Double.parseDouble(parsField.getText()));
-//    		DBController.addMenuItem(food.getID(), food);
+    		menuItem food = new menuItem(nameField.getText(), ingredients, portions);
+    		DBController.addMenuItem(food.getID(), food);
     		dataMenu.add(food);
     	} 
     	else 
     	{
     		dialog.close();
     	}
-//    	list.setEditable(true);
-//    	list.setCellFactory(TextFieldListCell.forListView());
-    	
-//    	menuItem item = new menuItem(menuNameField.getText(), ingredients, portions, Double.parseDouble(menuPARSField.getText()));
-//    	DBController.addMenuItem(item.getID(), item);
-    	
-    	
-//    	dataMenu.add(item);
-//    	menuNameField.clear();
-//    	menuPARSField.clear();
     }
     @FXML
     void selectInvItems(ActionEvent event) throws SQLException 
@@ -252,10 +236,8 @@ public class manageController
     	
     	mainTable.setItems(data);
     	mainTable.getColumns().addAll(itemNumberCol, itemNameCol, itemUnitCol,itemOrderUnitCol, itemVendorCol);
-    	
-    	
-    }
-    
+
+    }    
     @FXML
     void selectMenuItems(ActionEvent event) 
     {
@@ -267,18 +249,17 @@ public class manageController
     	
     	inventoryItemVBox.setVisible(false);
     	menuItemVBox.setVisible(true);
+    	addMenuItemButton.setVisible(true);
     	menuTable.getColumns().clear();
-    	menuTable.setContextMenu(null);
+    	menuTable.setContextMenu(contextMenu);
     	
     	TableColumn<menuItem, String> menuItemName = new TableColumn<menuItem, String>("Recipe");
     	menuItemName.setMinWidth(200);
     	menuItemName.setCellValueFactory(new PropertyValueFactory<menuItem, String>("name"));
     	
-    	TableColumn<menuItem, Double> parsCol = new TableColumn<menuItem, Double>("PARS Value");
-    	parsCol.setMinWidth(50);
-    	parsCol.setCellValueFactory(new PropertyValueFactory<menuItem, Double>("pars"));
-    	
-    	
+//    	TableColumn<menuItem, Double> parsCol = new TableColumn<menuItem, Double>("PARS Value");
+//    	parsCol.setMinWidth(50);
+//    	parsCol.setCellValueFactory(new PropertyValueFactory<menuItem, Double>("pars"));
     	
     	TableColumn<menuItem, String> ingredients = new TableColumn<>("Ingredients");
     	
@@ -302,44 +283,61 @@ public class manageController
             public TableCell call(final TableColumn<menuItem, String> param) {
                 final TableCell<menuItem, String> cell = new TableCell<menuItem, String>() {
 
-                    final Button btn = new Button("+");
-                    final Button btnClose = new Button("-");
+                    final ToggleButton btn = new ToggleButton("+"); 
                     @Override
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty || (item == null&&dataMenu.isEmpty()!=false)) {
+                        if (empty) {
                             setGraphic(null);
                             setText(null);
                         } else {
                         	
                         		btn.setOnAction(event -> {
+                        			if(btn.isSelected())
+                        			{
+                        				
+                        				menuItem ingrd = getTableView().getItems().get(getIndex());
+                                    	int i = 0;
+                                    	while(i<ingrd.getRecipe().size())
+                                    	{
+                                    		String name = ingrd.getRecipe().get(i);
+                                    		double portion = ingrd.getPortions().get(i);
+                                    		menuItem newIngrd = new menuItem(name, portion);
+                                    		dataMenu.add(getIndex()+i+1, newIngrd);                        		
+                                    		i++;
+                                    	}
+                                    	
+                                    	if(!ingredients.getColumns().contains(ingrdName))
+                                    	{
+                                    		ingredients.getColumns().addAll(ingrdName, ingrdPortion);
+                                    	}
+                                    	btn.setText("-");
+                        			}
+                        			else
+                        			{
+                        				menuItem ingrd = getTableView().getItems().get(getIndex());
+                        				int i = ingrd.getRecipe().size();
+                                    	while(i>0)
+                                    	{
+                                    		
+                                    		dataMenu.remove(getIndex()+i);
+                                    		i--;
+                                    	}
+                                    	btn.setText("+");
+                        			}
                                 	
-                                	menuItem ingrd = getTableView().getItems().get(getIndex());
-                                	int i = 0;
-                                	while(i<ingrd.getRecipe().size())
-                                	{
-                                		String name = ingrd.getRecipe().get(i);
-                                		double portion = ingrd.getPortions().get(i);
-                                		menuItem newIngrd = new menuItem(name, portion);
-                                		dataMenu.add(getIndex()+i+1, newIngrd);
-                                		i++;
-                                	}
                                 	
-                                	
-                                	ingredients.getColumns().addAll(ingrdName, ingrdPortion);
-                                	setGraphic(btnClose);
                         	}
                         			
                             );
-
-                        		setGraphic(btn);
+                        	if(!dataMenu.isEmpty()&&dataMenu.get(this.getTableRow().getIndex()).getName()==null)
+                        	{
+                        		setGraphic(null);
                                 setText(null);
 
-                            
-                            
-                            
-                            
-                            	
+                        	}
+                        		setGraphic(btn);
+                                setText(null);                 	
                         }
                     }
                 };
@@ -348,13 +346,11 @@ public class manageController
         };
         actionCol.setCellFactory(cellFactory);
     	ingredients.getColumns().addAll(actionCol);
- 
 	
-    	menuTable.getColumns().addAll(menuItemName, ingredients,  parsCol);
+    	menuTable.getColumns().addAll(menuItemName, ingredients);
     	menuTable.setItems(dataMenu);
 
-    }
-    
+    }    
     @FXML
     void modifyItem(ActionEvent event) 
     {
@@ -411,10 +407,10 @@ public class manageController
     	return new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				menuItem current = menuTable.getSelectionModel().getSelectedItem();
-				
-				if ((Integer.toString(current.getID())).isEmpty())
+				currentItemID = current.getID();
+
+				if ((Integer.toString(current.getID())).isEmpty()==false)
 				{
-					currentItemID = current.getID();
 					Alert alert = new Alert(AlertType.CONFIRMATION, "Do you wish to remove this menu item from the database?");
 			    	Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();	
 			    	alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
@@ -427,9 +423,10 @@ public class manageController
 			    	Optional<ButtonType> result = alert.showAndWait();
 			    	if (result.get() == ButtonType.OK)
 			    	{
-			    		DBController.deleteMenuItem(currentItemID);
+			    		;
 			    		int i = current.getPortions().size();
 			    		int j = current.getID();
+			    		DBController.deleteMenuItem(j);
 			    		dataMenu.remove(j, i+j);
 			    	} 
 			    	else 
@@ -486,7 +483,6 @@ public class manageController
 		}
     	
     }
-
     @FXML
     void selectMenuItemView(ActionEvent event) 
     {

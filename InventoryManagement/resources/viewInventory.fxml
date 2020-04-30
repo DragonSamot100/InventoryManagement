@@ -62,8 +62,8 @@
                         <DropShadow />
                      </effect>
                   </Label>
-                  <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportCurrentTab" prefHeight="32.0" prefWidth="150.0" text="Export" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                 <Button fx:id="importButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#importSheet" prefHeight="32.0" prefWidth="150.0" text="Import" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportCurrentTab" prefHeight="32.0" prefWidth="150.0" text="Export" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <MenuButton fx:id="menuSelector1" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" popupSide="LEFT" prefHeight="50.0" prefWidth="200.0" stylesheets="@application.css" text="&lt;&lt;" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
