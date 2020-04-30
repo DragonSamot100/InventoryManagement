@@ -36,7 +36,7 @@ public class DBController
 
 	public static boolean addInventory(String itemName, String unit, String orderunit, String vendor, int IDNumber, int stock) {
 		getConnection();
-		String query = "Insert into inventory (productID,Item,Unit,OrderUnit,distributor,quantity) values (?, ?, ?, ?, ?, ?)";
+		String query = "Insert into inventory (productID,item,unit,orderUnit,distributor,quantity) values (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement addStatement = connection.prepareStatement(query);
 			addStatement.setInt(1, IDNumber);
@@ -50,12 +50,29 @@ public class DBController
 		} catch (SQLException e) {
 			return false;
 		}
-		
+	}
+	
+	public static boolean modifyInventory(String itemName, String unit, String orderunit, String vendor, int IDNumber, int stock) {
+		getConnection();
+		String query = "UPDATE inventory SET (item,unit,orderunit,distributor,quantity) = (?,?,?,?,?) WHERE productID = ?";
+		try {
+			PreparedStatement addStatement = connection.prepareStatement(query);
+			addStatement.setString(1, itemName);
+			addStatement.setString(2, unit);
+			addStatement.setString(3, orderunit);
+			addStatement.setString(4, vendor);
+			addStatement.setInt(5, stock);
+			addStatement.setInt(6, IDNumber);
+			addStatement.execute();
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
 	}
 	
 	public static boolean addMenuItem(int menuNum, menuItem food) {
 		getConnection();
-		String query = "Insert into menuItems (MENU,OBJECT) values (?, ?)";
+		String query = "INSERT INTO menuItems (MENU,OBJECT) values (?, ?)";
 		try {
 			PreparedStatement addStatement = connection.prepareStatement(query);
 			addStatement.setInt(1, menuNum);
