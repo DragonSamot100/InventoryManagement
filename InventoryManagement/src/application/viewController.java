@@ -86,6 +86,10 @@ public class viewController
     {
     	//exports currently opened tab 
     	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setInitialDirectory(new File("saves"));
+    	FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Plain text", "*.txt");
+    	fileChooser.getExtensionFilters().add(filter);
+    	fileChooser.setSelectedExtensionFilter(filter);
     	Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
     	File selectedFile = fileChooser.showSaveDialog((stage));
     	CSVWriter.write(selectedFile);
@@ -94,8 +98,9 @@ public class viewController
     @FXML
     void importSheet(ActionEvent event) 
     {
-    	TableView<inventoryItem> newTable = new TableView<inventoryItem>();
+    	TableView<inventoryItem> newTable = new TableView();
     	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setInitialDirectory(new File("saves"));
     	Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
     	File selectedFile = fileChooser.showOpenDialog(stage);
     	
